@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buku Bon & Piutang - Toko Berkah Garam</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-100 font-sans text-slate-800 antialiased min-h-screen">
+
+  <div class="min-h-screen flex flex-col md:flex-row">
+
+    <!-- =============================================================== -->
+    <!-- 1. SIDEBAR KHUSUS LAPTOP & TABLET                               -->
+    <!-- =============================================================== -->
+    <aside class="hidden md:flex flex-col w-64 lg:w-72 bg-slate-900 text-slate-300 p-5 shrink-0 border-r border-slate-800 sticky top-0 h-screen overflow-y-auto">
+      
+      <!-- Brand Logo Toko -->
+      <div class="flex items-center gap-3 pb-6 border-b border-slate-800">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-white flex items-center justify-center text-xl font-bold shadow-lg shadow-emerald-500/20">
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-extrabold text-white tracking-tight">Toko Berkah</h1>
+          <p id="roleBadgeSidebar" class="text-xs text-emerald-400 font-semibold flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Mode Pemilik (Aktif)
+          </p>
+        </div>
+      </div>
+
+      <!-- Menu Navigasi Utama Desktop -->
+      <nav class="flex-1 py-6 space-y-1.5">
+        <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-3 block mb-2">Menu Utama</span>
+        
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-chart-pie w-5 text-center text-slate-300"></i>
+          <span>Dashboard Ringkasan</span>
+        </a>
+
+        <a href="kasir.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-cash-register w-5 text-center text-emerald-400 text-base"></i>
+          <span>Kasir Penjualan</span>
+        </a>
+
+        <!-- MENU BUKU BON (AKTIF) -->
+        <a href="buku-bon.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl bg-amber-500 text-white font-bold text-sm shadow-md shadow-amber-500/30">
+          <i class="fa-solid fa-clipboard-list w-5 text-center text-white text-base"></i>
+          <span>Buku Bon & Hutang</span>
+        </a>
+
+        <a href="stok.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-boxes-stacked w-5 text-center text-blue-400 text-base"></i>
+          <span>Stok & Multi-Gudang</span>
+        </a>
+
+        <a href="stok-masuk.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-truck-loading w-5 text-center text-indigo-400 text-base"></i>
+          <span>Stok Masuk (Kulakan)</span>
+        </a>
+
+        <!-- MENU KHUSUS PEMILIK -->
+        <div id="ownerMenuSection" class="space-y-1.5 pt-2">
+          <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-3 block pt-2 mb-2">Akses Pemilik Toko</span>
+
+          <a href="buka-karung.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-box-open w-5 text-center text-purple-400 text-base"></i>
+            <span>Buka Karung Garam</span>
+          </a>
+
+          <a href="ambil-uang.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-hand-holding-dollar w-5 text-center text-orange-400 text-base"></i>
+            <span>Ambil Uang (Prive/Biaya)</span>
+          </a>
+
+          <a href="tutup-kasir.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-lock w-5 text-center text-rose-400 text-base"></i>
+            <span>Tutup Kasir Harian</span>
+          </a>
+
+          <a href="laporan.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-teal-400 text-base"></i>
+            <span>Laporan & Backup Drive</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Profil & Tombol Ganti Peran Bawah -->
+      <div class="pt-4 border-t border-slate-800 space-y-3">
+        <button onclick="toggleUserRole()" id="btnSwitchRoleSidebar" class="w-full py-2.5 px-3 bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs rounded-xl border border-slate-700 flex items-center justify-between transition">
+          <span class="flex items-center gap-2">
+            <i class="fa-solid fa-user-shield text-amber-400"></i>
+            <span id="labelSwitchRoleSidebar">Ganti ke Mode Penjaga</span>
+          </span>
+          <i class="fa-solid fa-chevron-right text-[10px]"></i>
+        </button>
+
+        <div class="flex items-center justify-between text-xs px-1 text-slate-400">
+          <span id="roleDescSidebar">Akses: Semua Fitur Terbuka</span>
+          <span class="text-emerald-400 font-bold">Online</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- =============================================================== -->
+    <!-- 2. KONTEN UTAMA: BUKU BON & PIUTANG PELANGGAN                   -->
+    <!-- =============================================================== -->
+    <div class="flex-1 flex flex-col min-h-screen min-w-0">
+
+      <!-- TOPBAR DESKTOP -->
+      <header class="hidden md:flex flex-wrap items-center justify-between gap-3 bg-white border-b border-slate-200 px-6 lg:px-8 py-4 sticky top-0 z-20">
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-900">Buku Bon & Piutang Pelanggan</h2>
+          <p class="text-xs text-slate-500">Pantau catatan hutang langganan, terima cicilan, dan kirim tagihan WhatsApp</p>
+        </div>
+        
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <button onclick="bukaPengaturanDatabase()" class="db-status-badge px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold text-xs rounded-xl flex items-center gap-1.5 transition" title="Pengaturan Database">
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+            <span>Lokal</span>
+          </button>
+          <a href="kasir.html" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl flex items-center gap-2 shadow-sm transition whitespace-nowrap">
+            <i class="fa-solid fa-cash-register"></i>
+            <span>Ke Kasir</span>
+          </a>
+          <button onclick="bukaModalCatatBonBaru()" class="px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-xs rounded-xl shadow-md flex items-center gap-2 transition active:scale-95 whitespace-nowrap">
+            <i class="fa-solid fa-plus-circle"></i>
+            <span>+ Catat Bon Baru</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- HEADER MOBILE -->
+      <header class="md:hidden bg-gradient-to-r from-amber-500 to-amber-600 text-white p-4 pt-6 sticky top-0 z-30 shadow-md">
+        <div class="flex items-center justify-between">
+          <a href="kasir.html" class="flex items-center gap-1.5 bg-white/20 px-3 py-1.5 rounded-full text-xs font-bold active:scale-95 transition">
+            <i class="fa-solid fa-arrow-left"></i> Kasir
+          </a>
+          <h1 class="text-lg font-bold">Buku Bon</h1>
+          <button onclick="bukaModalCatatBonBaru()" class="bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 active:scale-95 transition">
+            <i class="fa-solid fa-plus"></i> Tambah
+          </button>
+        </div>
+        <p class="text-xs text-amber-100 mt-2 text-center">Kelola hutang langganan & pembayaran bon</p>
+      </header>
+
+      <!-- MAIN AREA -->
+      <main class="flex-1 p-4 md:p-8 space-y-6 max-w-7xl w-full mx-auto pb-28 md:pb-8">
+
+        <!-- 3 KARTU METRIK UTAMA BON -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <!-- Total Bon Belum Lunas -->
+          <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold text-slate-400 block uppercase tracking-wider">Total Piutang Toko</span>
+              <span id="totalPiutangVal" class="text-2xl font-black text-amber-600 block mt-1">Rp 480.000</span>
+              <span class="text-xs text-slate-500 font-semibold mt-1 inline-block" id="countBelumLunas">3 Pelanggan Belum Lunas</span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl font-bold">
+              <i class="fa-solid fa-clipboard-list"></i>
+            </div>
+          </div>
+
+          <!-- Bon Terbayar Bulan Ini -->
+          <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold text-slate-400 block uppercase tracking-wider">Lunas Bulan Ini</span>
+              <span class="text-2xl font-black text-emerald-600 block mt-1">Rp 520.000</span>
+              <span class="text-xs text-emerald-600 font-bold mt-1 inline-block">Masuk Kas Laci</span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl font-bold">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+          </div>
+
+          <!-- Jatuh Tempo Minggu Ini -->
+          <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold text-slate-400 block uppercase tracking-wider">Jatuh Tempo Dekat</span>
+              <span class="text-2xl font-black text-rose-600 block mt-1">2 Nota</span>
+              <span class="text-xs text-rose-500 font-medium mt-1 inline-block">Perlu ditagih via WA</span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl font-bold">
+              <i class="fa-solid fa-calendar-xmark"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- BAR PENCARIAN & FILTER -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="relative w-full sm:w-80">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input 
+              type="text" 
+              id="searchBon" 
+              oninput="filterBonList()" 
+              placeholder="Cari nama pelanggan / HP..." 
+              class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-amber-500"
+            />
+          </div>
+
+          <!-- Filter Tab: Semua, Belum Lunas, Lunas -->
+          <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl text-xs font-bold w-full sm:w-auto">
+            <button id="tabFilterSemua" onclick="setFilterStatus('semua')" class="flex-1 sm:flex-initial px-3 py-1.5 rounded-lg bg-amber-500 text-white shadow-sm transition">Semua</button>
+            <button id="tabFilterBelum" onclick="setFilterStatus('belum')" class="flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Belum Lunas</button>
+            <button id="tabFilterLunas" onclick="setFilterStatus('lunas')" class="flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Lunas</button>
+          </div>
+        </div>
+
+        <!-- DAFTAR KARTU PELANGGAN YANG PUNYA BON -->
+        <div id="bonListContainer" class="space-y-4">
+          <!-- Rendered via JavaScript -->
+        </div>
+
+      </main>
+
+      <!-- BOTTOM NAV MOBILE -->
+      <nav class="md:hidden bg-white/95 backdrop-blur-md border-t border-slate-200 fixed bottom-0 inset-x-0 flex justify-around py-2.5 z-40">
+        <a href="index.html" class="flex flex-col items-center text-slate-400">
+          <i class="fa-solid fa-house text-lg"></i>
+          <span class="text-[10px] mt-1">Beranda</span>
+        </a>
+        <a href="kasir.html" class="flex flex-col items-center text-slate-400">
+          <i class="fa-solid fa-cart-shopping text-lg"></i>
+          <span class="text-[10px] mt-1">Kasir</span>
+        </a>
+        <a href="buku-bon.html" class="flex flex-col items-center text-amber-600 font-bold">
+          <i class="fa-solid fa-clipboard-list text-lg"></i>
+          <span class="text-[10px] mt-1">Buku Bon</span>
+        </a>
+        <a href="stok.html" class="flex flex-col items-center text-slate-400">
+          <i class="fa-solid fa-box text-lg"></i>
+          <span class="text-[10px] mt-1">Stok</span>
+        </a>
+        <a href="laporan.html" class="flex flex-col items-center text-slate-400">
+          <i class="fa-solid fa-chart-pie text-lg"></i>
+          <span class="text-[10px] mt-1">Laporan</span>
+        </a>
+      </nav>
+
+    </div>
+
+  </div>
+
+  <!-- =============================================================== -->
+  <!-- MODAL 1: BAYAR / CICIL BON (RAMAH LANSIA)                       -->
+  <!-- =============================================================== -->
+  <div id="modalBayarBon" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 sm:p-7 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in zoom-in duration-200 border-2 border-emerald-100">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl font-bold">
+            <i class="fa-solid fa-money-bill-wave"></i>
+          </div>
+          <div>
+            <h4 class="font-black text-lg text-slate-900">Terima Pembayaran Bon</h4>
+            <p class="text-xs text-slate-500 font-semibold" id="bayarBonNamaTarget">Pelanggan: Pak Budi</p>
+          </div>
+        </div>
+        <button onclick="tutupModalBayarBon()" class="w-10 h-10 rounded-full text-slate-400 hover:text-slate-800 hover:bg-slate-100 flex items-center justify-center text-lg transition" title="Tutup">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-4 bg-slate-50 rounded-2xl border-2 border-slate-200 space-y-1">
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wide block">Total Sisa Bon Pelanggan:</span>
+        <div class="font-black text-2xl sm:text-3xl text-amber-700" id="bayarBonSisaAwal">Rp 0</div>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <label class="text-xs font-black text-slate-800 block mb-1.5">Jumlah Yang Dibayar (Rp):</label>
+          <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-600 font-black text-lg">Rp</span>
+            <input 
+              type="number" 
+              id="bayarBonNominalInput" 
+              inputmode="numeric"
+              value="0" 
+              class="w-full pl-12 pr-4 py-3.5 bg-emerald-50/60 border-2 border-emerald-500 rounded-2xl text-2xl font-black text-emerald-900 focus:outline-none focus:ring-4 focus:ring-emerald-500/20 shadow-inner" 
+            />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button" onclick="setNominalBayarLunas()" class="py-2.5 px-3 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 text-xs font-black rounded-xl transition active:scale-95 text-center">
+            ✓ Bayar Lunas Penuh
+          </button>
+          <button type="button" onclick="setNominalBayarSeparuh()" class="py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-black rounded-xl transition active:scale-95 text-center">
+            ½ Cicil Separuh
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <label class="text-xs font-black text-slate-800 block mb-1.5">Uang Diterima Melalui:</label>
+        <select id="bayarBonMetode" class="w-full p-3.5 bg-white border-2 border-slate-300 rounded-2xl text-sm font-bold text-slate-800 focus:outline-none focus:border-emerald-500">
+          <option value="tunai">💵 Uang Tunai (Masuk ke Laci Kasir)</option>
+          <option value="transfer">💳 Transfer Bank / QRIS (Masuk Rekening)</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 pt-3 border-t border-slate-200">
+        <button onclick="tutupModalBayarBon()" class="py-3.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-black text-sm rounded-2xl transition">
+          Batal
+        </button>
+        <button onclick="prosesBayarBon()" class="py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-black text-sm rounded-2xl shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 transition">
+          <i class="fa-solid fa-check text-base"></i>
+          <span>Simpan Pembayaran</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================================== -->
+  <!-- MODAL 2: CATAT BON BARU (MANUAL) (RAMAH LANSIA)                -->
+  <!-- =============================================================== -->
+  <div id="modalCatatBonBaru" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 sm:p-7 max-w-md w-full shadow-2xl space-y-4 animate-in fade-in zoom-in duration-200 max-h-[92vh] overflow-y-auto border-2 border-amber-200">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl font-bold">
+            <i class="fa-solid fa-clipboard-user"></i>
+          </div>
+          <div>
+            <h4 class="font-black text-lg text-slate-900">Catat Bon Pelanggan</h4>
+            <p class="text-xs text-slate-500 font-semibold">Pencatatan hutang langganan</p>
+          </div>
+        </div>
+        <button onclick="tutupModalCatatBonBaru()" class="w-10 h-10 rounded-full text-slate-400 hover:text-slate-800 hover:bg-slate-100 flex items-center justify-center text-lg transition" title="Tutup">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3.5">
+        <div>
+          <label class="text-xs font-black text-slate-800 block mb-1.5">Nama Pelanggan (Wajib):</label>
+          <input type="text" id="inpBonNama" placeholder="Misal: Pak Budi / Bu Hj. Maryam" class="w-full p-3.5 bg-slate-50 border-2 border-slate-300 rounded-2xl font-black text-base text-slate-900 focus:outline-none focus:border-amber-500 focus:bg-white transition" />
+        </div>
+
+        <div>
+          <label class="text-xs font-black text-slate-800 block mb-1.5">No. WhatsApp / HP (Opsional):</label>
+          <input type="text" id="inpBonHp" placeholder="081234567890" inputmode="tel" class="w-full p-3 bg-slate-50 border-2 border-slate-200 rounded-2xl font-bold text-sm text-slate-800 focus:outline-none focus:border-amber-500 focus:bg-white transition" />
+        </div>
+
+        <div>
+          <label class="text-xs font-black text-slate-800 block mb-1.5">Barang yang Diambil:</label>
+          <input type="text" id="inpBonBarang" placeholder="Misal: 1 Karung Garam 50kg, 2 Dus Aqua Gelas" class="w-full p-3 bg-slate-50 border-2 border-slate-200 rounded-2xl font-bold text-sm text-slate-800 focus:outline-none focus:border-amber-500 focus:bg-white transition" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs font-black text-slate-800 block mb-1.5">Total Harga (Rp):</label>
+            <input type="number" id="inpBonTotal" placeholder="130000" inputmode="numeric" oninput="hitungSisaBonBaru()" class="w-full p-3 bg-white border-2 border-slate-300 rounded-2xl text-base font-black text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          </div>
+          <div>
+            <label class="text-xs font-black text-slate-800 block mb-1.5">DP / Bayar Tunai (Rp):</label>
+            <input type="number" id="inpBonDp" placeholder="0" value="0" inputmode="numeric" oninput="hitungSisaBonBaru()" class="w-full p-3 bg-white border-2 border-emerald-400 rounded-2xl text-base font-black text-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+          </div>
+        </div>
+
+        <div class="p-3.5 bg-amber-50 border-2 border-amber-300 rounded-2xl flex items-center justify-between">
+          <div>
+            <span class="text-xs font-bold text-amber-800 uppercase tracking-wide block">Sisa Masuk Buku Bon:</span>
+            <span class="text-amber-950 font-black text-2xl mt-0.5 block" id="labelSisaBonBaru">Rp 0</span>
+          </div>
+          <i class="fa-solid fa-file-invoice-dollar text-amber-500 text-3xl opacity-80"></i>
+        </div>
+
+        <div>
+          <label class="text-xs font-black text-slate-800 block mb-1.5">Janji Bayar / Keterangan:</label>
+          <input type="text" id="inpBonKet" placeholder="Misal: Besok sore / Pas Gajian" class="w-full p-3 bg-slate-50 border-2 border-slate-200 rounded-2xl font-bold text-sm text-slate-800 focus:outline-none focus:border-amber-500 focus:bg-white transition" />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 pt-3 border-t border-slate-200">
+        <button onclick="tutupModalCatatBonBaru()" class="py-3.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-black text-sm rounded-2xl transition">
+          Batal
+        </button>
+        <button onclick="simpanBonBaruManual()" class="py-3.5 px-4 bg-amber-500 hover:bg-amber-600 active:scale-95 text-white font-black text-sm rounded-2xl shadow-lg shadow-amber-500/30 flex items-center justify-center gap-2 transition">
+          <i class="fa-solid fa-floppy-disk text-base"></i>
+          <span>Simpan Bon</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // DATA DEFAULT AWAL BUKU BON (Disinkronkan dengan localStorage)
+    const DEFAULT_BON_DATA = [
+      {
+        id: "bon-1",
+        nama: "Pak Budi (Resto Langganan)",
+        hp: "081234567890",
+        sisaBon: 350000,
+        status: "belum",
+        tempo: "Sabtu, 10 Okt 2026",
+        riwayat: [
+          { tanggal: "8 Okt 2026, 14:15", barang: "Garam Krosok 50kg (2 Karung), Aqua Galon (3 Galon)", total: 280000, dp: 30000, bon: 250000, ket: "Diambil karyawannya" },
+          { tanggal: "5 Okt 2026, 09:30", barang: "Aqua Dus Gelas (4 Dus)", total: 100000, dp: 0, bon: 100000, ket: "Kebutuhan hajatan" }
+        ]
+      },
+      {
+        id: "bon-2",
+        nama: "Bu Siti (Warung Sebelah)",
+        hp: "085712345678",
+        sisaBon: 130000,
+        status: "belum",
+        tempo: "Akhir Bulan",
+        riwayat: [
+          { tanggal: "8 Okt 2026, 11:00", barang: "Garam Krosok 50kg (1 Karung), Aqua Dus Gelas (1 Dus)", total: 135000, dp: 5000, bon: 130000, ket: "Kulakan ecer warung" }
+        ]
+      },
+      {
+        id: "bon-3",
+        nama: "Pak Haji Mansur (Katering)",
+        hp: "081987654321",
+        sisaBon: 0,
+        status: "lunas",
+        tempo: "Sudah Lunas",
+        riwayat: [
+          { tanggal: "6 Okt 2026, 16:00", barang: "Beras Ramos 5kg (5 Sak)", total: 360000, dp: 360000, bon: 0, ket: "Lunas transfer bank" }
+        ]
+      }
+    ];
+
+    let bonList = [];
+    let filterStatusAktif = 'semua';
+    let targetBonIdAktif = null;
+
+    async function initDataBon() {
+      if (window.DB) {
+        try {
+          const cloudData = await DB.getCustomerDebts();
+          if (cloudData && cloudData.length > 0) {
+            bonList = cloudData.map(d => ({
+              id: String(d.id),
+              nama: d.customer_name || d.nama || 'Pelanggan',
+              hp: d.customer_phone || d.hp || '',
+              sisaBon: Number(d.remaining_debt !== undefined ? d.remaining_debt : (d.sisaBon || 0)),
+              status: (d.status === 'belum_lunas' || d.status === 'belum') ? 'belum' : 'lunas',
+              tempo: d.due_date || d.tempo || 'Akhir Pekan',
+              riwayat: d.riwayat || [
+                {
+                  tanggal: 'Nota Bon',
+                  barang: d.items_summary || 'Transaksi Belanja',
+                  total: Number(d.total_debt || d.remaining_debt || 0),
+                  dp: Number(d.paid_debt || 0),
+                  bon: Number(d.remaining_debt || 0),
+                  ket: d.notes || 'Hutang Kasir'
+                }
+              ]
+            }));
+            renderBonList();
+            updateRingkasanMetrik();
+            return;
+          }
+        } catch(e) {
+          console.warn("Gagal load bon dari DB:", e);
+        }
+      }
+
+      const stored = localStorage.getItem('toko_buku_bon');
+      if (stored) {
+        try {
+          bonList = JSON.parse(stored);
+        } catch(e) {
+          bonList = DEFAULT_BON_DATA;
+        }
+      } else {
+        bonList = DEFAULT_BON_DATA;
+        simpanKeStorage();
+      }
+      renderBonList();
+      updateRingkasanMetrik();
+    }
+
+    function simpanKeStorage() {
+      localStorage.setItem('toko_buku_bon', JSON.stringify(bonList));
+    }
+
+    function updateRingkasanMetrik() {
+      const totalBelum = bonList.filter(b => b.sisaBon > 0).reduce((acc, cur) => acc + cur.sisaBon, 0);
+      const jmlBelum = bonList.filter(b => b.sisaBon > 0).length;
+
+      document.getElementById('totalPiutangVal').innerText = `Rp ${new Intl.NumberFormat('id-ID').format(totalBelum)}`;
+      document.getElementById('countBelumLunas').innerText = `${jmlBelum} Pelanggan Belum Lunas`;
+    }
+
+    function renderBonList() {
+      const container = document.getElementById('bonListContainer');
+      const searchQuery = (document.getElementById('searchBon').value || '').toLowerCase().trim();
+
+      const filtered = bonList.filter(b => {
+        const matchSearch = b.nama.toLowerCase().includes(searchQuery) || (b.hp && b.hp.includes(searchQuery));
+        if (!matchSearch) return false;
+        if (filterStatusAktif === 'belum') return b.sisaBon > 0;
+        if (filterStatusAktif === 'lunas') return b.sisaBon === 0;
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-3xl p-8 text-center border border-slate-200 text-slate-400">
+            <i class="fa-solid fa-folder-open text-3xl mb-2 text-slate-300"></i>
+            <p class="text-xs">Tidak ada data bon pelanggan yang sesuai filter.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        const isLunas = item.sisaBon === 0;
+        const statusBadge = isLunas 
+          ? `<span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-[11px] font-extrabold rounded-lg">✓ Lunas</span>`
+          : `<span class="px-2.5 py-1 bg-amber-100 text-amber-800 text-[11px] font-extrabold rounded-lg">🟡 Belum Lunas</span>`;
+
+        return `
+          <div class="bg-white rounded-3xl p-5 md:p-6 border border-slate-200 shadow-sm space-y-4 hover:border-amber-300 transition">
+            
+            <!-- Header Kartu Pelanggan -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl ${isLunas ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'} flex items-center justify-center text-xl font-bold shrink-0">
+                  <i class="fa-solid fa-user"></i>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-extrabold text-base text-slate-900">${item.nama}</h3>
+                    ${statusBadge}
+                  </div>
+                  <p class="text-xs text-slate-500 mt-0.5">
+                    <i class="fa-brands fa-whatsapp text-emerald-500 mr-1"></i> ${item.hp || 'Belum ada No. HP'}
+                    <span class="mx-1.5">•</span>
+                    <i class="fa-solid fa-calendar-clock text-slate-400 mr-1"></i> Janji Bayar: <b class="text-slate-700">${item.tempo || '-'}</b>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Sisa Hutang Nominal -->
+              <div class="text-left sm:text-right bg-slate-50 sm:bg-transparent p-3 sm:p-0 rounded-2xl">
+                <span class="text-[11px] font-bold text-slate-400 block uppercase">Sisa Hutang Bon:</span>
+                <span class="text-xl md:text-2xl font-black ${isLunas ? 'text-emerald-600' : 'text-amber-600'}">
+                  Rp ${new Intl.NumberFormat('id-ID').format(item.sisaBon)}
+                </span>
+              </div>
+            </div>
+
+            <!-- Riwayat Rincian Nota / Barang -->
+            <div class="space-y-2">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Riwayat Transaksi Bon:</span>
+              <div class="space-y-2 text-xs">
+                ${item.riwayat.map(rw => `
+                  <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <div class="font-bold text-slate-800">${rw.barang}</div>
+                      <div class="text-[11px] text-slate-400 mt-0.5">📅 ${rw.tanggal} ${rw.ket ? '• <i>' + rw.ket + '</i>' : ''}</div>
+                    </div>
+                    <div class="text-right sm:text-right flex sm:flex-col justify-between items-center sm:items-end border-t sm:border-t-0 pt-1 sm:pt-0">
+                      <span class="font-extrabold text-slate-900 text-xs">Total: Rp ${new Intl.NumberFormat('id-ID').format(rw.total)}</span>
+                      <span class="text-[11px] text-amber-700 font-medium">Bon: Rp ${new Intl.NumberFormat('id-ID').format(rw.bon)} (DP: Rp ${new Intl.NumberFormat('id-ID').format(rw.dp || 0)})</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Tombol Aksi Pelunasan & WhatsApp -->
+            <div class="flex flex-wrap items-center justify-end gap-2 pt-2 border-t border-slate-100">
+              <button onclick="kirimTagihanWa('${item.id}')" class="px-4 py-2.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-xs rounded-xl border border-emerald-200 flex items-center gap-1.5 transition active:scale-95">
+                <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i>
+                <span>Tagih via WA</span>
+              </button>
+
+              ${!isLunas ? `
+                <button onclick="bukaModalBayarBon('${item.id}')" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center gap-1.5">
+                  <i class="fa-solid fa-money-bill-wave"></i>
+                  <span>Terima Pembayaran / Cicil</span>
+                </button>
+              ` : `
+                <button disabled class="px-4 py-2.5 bg-slate-100 text-slate-400 font-bold text-xs rounded-xl flex items-center gap-1.5 cursor-not-allowed">
+                  <i class="fa-solid fa-check"></i>
+                  <span>Sudah Lunas</span>
+                </button>
+              `}
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    function setFilterStatus(status) {
+      filterStatusAktif = status;
+      const tabs = ['semua', 'belum', 'lunas'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('tabFilter' + kapital(t));
+        if (btn) {
+          if (t === status) {
+            btn.className = "flex-1 sm:flex-initial px-3 py-1.5 rounded-lg bg-amber-500 text-white shadow-sm transition";
+          } else {
+            btn.className = "flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition";
+          }
+        }
+      });
+      renderBonList();
+    }
+
+    function filterBonList() {
+      renderBonList();
+    }
+
+    // Modal Bayar Bon
+    function bukaModalBayarBon(id) {
+      const item = bonList.find(b => b.id === id);
+      if (!item) return;
+
+      targetBonIdAktif = id;
+      document.getElementById('bayarBonNamaTarget').innerText = `Pelanggan: ${item.nama}`;
+      document.getElementById('bayarBonSisaAwal').innerText = `Rp ${new Intl.NumberFormat('id-ID').format(item.sisaBon)}`;
+      document.getElementById('bayarBonNominalInput').value = item.sisaBon;
+      document.getElementById('modalBayarBon').classList.remove('hidden');
+    }
+
+    function tutupModalBayarBon() {
+      document.getElementById('modalBayarBon').classList.add('hidden');
+      targetBonIdAktif = null;
+    }
+
+    function setNominalBayarLunas() {
+      const item = bonList.find(b => b.id === targetBonIdAktif);
+      if (item) document.getElementById('bayarBonNominalInput').value = item.sisaBon;
+    }
+
+    function setNominalBayarSeparuh() {
+      const item = bonList.find(b => b.id === targetBonIdAktif);
+      if (item) document.getElementById('bayarBonNominalInput').value = Math.round(item.sisaBon / 2);
+    }
+
+    function prosesBayarBon() {
+      const item = bonList.find(b => b.id === targetBonIdAktif);
+      if (!item) return;
+
+      const nominalBayar = parseInt(document.getElementById('bayarBonNominalInput').value) || 0;
+      if (nominalBayar <= 0) {
+        showAppModal("Nominal pembayaran harus lebih besar dari 0.", {
+          judul: "Nominal Tidak Valid",
+          tipe: "warning"
+        });
+        return;
+      }
+
+      if (nominalBayar > item.sisaBon) {
+        showAppModal(`Nominal pembayaran (Rp ${new Intl.NumberFormat('id-ID').format(nominalBayar)}) melebihi sisa hutang bon (Rp ${new Intl.NumberFormat('id-ID').format(item.sisaBon)}).`, {
+          judul: "Nominal Berlebih",
+          tipe: "warning"
+        });
+        return;
+      }
+
+      item.sisaBon -= nominalBayar;
+      if (item.sisaBon === 0) {
+        item.status = "lunas";
+        item.tempo = "Sudah Lunas";
+      }
+
+      item.riwayat.unshift({
+        tanggal: "Hari ini, " + new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+        barang: `Pembayaran Pelunasan Bon (${document.getElementById('bayarBonMetode').value === 'tunai' ? 'Kas Tunai Laci' : 'Transfer/QRIS'})`,
+        total: nominalBayar,
+        dp: nominalBayar,
+        bon: 0,
+        ket: `Pelunasan cicilan sebesar Rp ${new Intl.NumberFormat('id-ID').format(nominalBayar)}`
+      });
+
+      simpanKeStorage();
+      if (window.DB) {
+        DB.payCustomerDebt(item.id, nominalBayar, document.getElementById('bayarBonMetode').value, `Pelunasan cicilan dari ${item.nama}`);
+      }
+      tutupModalBayarBon();
+      renderBonList();
+      updateRingkasanMetrik();
+
+      showAppModal(`Pembayaran bon sebesar Rp ${new Intl.NumberFormat('id-ID').format(nominalBayar)} dari ${item.nama} berhasil dicatat!\n\n• Uang telah otomatis masuk ke sistem Kas Laci.\n• Sisa bon pelanggan: Rp ${new Intl.NumberFormat('id-ID').format(item.sisaBon)}.`, {
+        judul: "Pembayaran Diterima",
+        tipe: "sukses"
+      });
+    }
+
+    // Modal Catat Bon Manual
+    function bukaModalCatatBonBaru() {
+      document.getElementById('modalCatatBonBaru').classList.remove('hidden');
+    }
+
+    function tutupModalCatatBonBaru() {
+      document.getElementById('modalCatatBonBaru').classList.add('hidden');
+    }
+
+    function hitungSisaBonBaru() {
+      const tot = parseInt(document.getElementById('inpBonTotal').value) || 0;
+      const dp = parseInt(document.getElementById('inpBonDp').value) || 0;
+      const sisa = Math.max(0, tot - dp);
+      document.getElementById('labelSisaBonBaru').innerText = `Rp ${new Intl.NumberFormat('id-ID').format(sisa)}`;
+    }
+
+    function simpanBonBaruManual() {
+      const nama = document.getElementById('inpBonNama').value.trim();
+      const hp = document.getElementById('inpBonHp').value.trim();
+      const barang = document.getElementById('inpBonBarang').value.trim();
+      const total = parseInt(document.getElementById('inpBonTotal').value) || 0;
+      const dp = parseInt(document.getElementById('inpBonDp').value) || 0;
+      const ket = document.getElementById('inpBonKet').value.trim();
+
+      if (!nama || !barang || total <= 0) {
+        showAppModal("Silakan lengkapi Nama Pelanggan, Barang Belanja, dan Total Belanja.", {
+          judul: "Data Belum Lengkap",
+          tipe: "warning"
+        });
+        return;
+      }
+
+      const sisa = Math.max(0, total - dp);
+
+      // Cek apakah pelanggan sudah ada
+      let exist = bonList.find(b => b.nama.toLowerCase() === nama.toLowerCase());
+      if (exist) {
+        exist.sisaBon += sisa;
+        exist.status = exist.sisaBon > 0 ? "belum" : "lunas";
+        if (hp) exist.hp = hp;
+        if (ket) exist.tempo = ket;
+        exist.riwayat.unshift({
+          tanggal: "Hari ini, " + new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+          barang: barang,
+          total: total,
+          dp: dp,
+          bon: sisa,
+          ket: ket || "Catat bon baru"
+        });
+      } else {
+        bonList.unshift({
+          id: "bon-" + Date.now(),
+          nama: nama,
+          hp: hp,
+          sisaBon: sisa,
+          status: sisa > 0 ? "belum" : "lunas",
+          tempo: ket || "Akhir Pekan",
+          riwayat: [
+            {
+              tanggal: "Hari ini, " + new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+              barang: barang,
+              total: total,
+              dp: dp,
+              bon: sisa,
+              ket: ket || "Catat bon baru"
+            }
+          ]
+        });
+      }
+
+      simpanKeStorage();
+      if (window.DB) {
+        DB.saveCustomerDebt({
+          customer_name: nama,
+          customer_phone: hp,
+          total_debt: total,
+          paid_debt: dp,
+          remaining_debt: sisa,
+          status: sisa > 0 ? "belum_lunas" : "lunas",
+          items_summary: barang,
+          notes: ket || "Catat bon baru manual"
+        });
+      }
+      tutupModalCatatBonBaru();
+      renderBonList();
+      updateRingkasanMetrik();
+
+      showAppModal(`Catatan Bon untuk "${nama}" sebesar Rp ${new Intl.NumberFormat('id-ID').format(sisa)} berhasil disimpan ke Buku Bon!`, {
+        judul: "Bon Berhasil Dicatat",
+        tipe: "sukses"
+      });
+    }
+
+    function formatNoHpWa(hp) {
+      let clean = String(hp || '').replace(/[^0-9]/g, '');
+      if (clean.startsWith('0')) clean = '62' + clean.slice(1);
+      return clean;
+    }
+
+    function kirimTagihanWa(id) {
+      const item = bonList.find(b => b.id === id);
+      if (!item) return;
+
+      const settings = window.Printer ? Printer.getSettings() : {};
+      const namaToko = settings.nama || 'Toko Berkah Garam';
+      const rekening = settings.rekeningBank || 'BCA 1234567890 a.n Toko Berkah';
+
+      // Ringkasan barang dari riwayat bon
+      const barangTerakhir = (item.riwayat && item.riwayat.length > 0)
+        ? item.riwayat[0].barang
+        : 'Barang Belanja Sembako/Garam';
+
+      const totalHutang = (item.riwayat && item.riwayat.length > 0)
+        ? item.riwayat.reduce((sum, r) => sum + (Number(r.total) || 0), 0)
+        : item.sisaBon;
+
+      const cicilanMasuk = Math.max(0, totalHutang - item.sisaBon);
+
+      const pesanRaw = 
+        `Halo Bpk/Ibu *${item.nama}*,\n\n` +
+        `Berikut kami sampaikan rincian catatan bon belanja di *${namaToko}*:\n\n` +
+        `📦 *Barang Diambil:* ${barangTerakhir}\n` +
+        `💰 *Total Belanja:* Rp ${new Intl.NumberFormat('id-ID').format(totalHutang)}\n` +
+        `✅ *DP / Cicilan Masuk:* Rp ${new Intl.NumberFormat('id-ID').format(cicilanMasuk)}\n` +
+        `🟡 *SISA BON:* *Rp ${new Intl.NumberFormat('id-ID').format(item.sisaBon)}*\n` +
+        `📅 *Janji Bayar:* ${item.tempo || 'Akhir Pekan'}\n\n` +
+        `💳 *Pembayaran Transfer dapat dikirim ke:*\n` +
+        `${rekening}\n\n` +
+        `Terima kasih banyak atas kerjasamanya! 🙏`;
+
+      let targetHp = formatNoHpWa(item.hp);
+
+      if (!targetHp) {
+        const inputHp = prompt(`Nomor WhatsApp untuk "${item.nama}" belum ada.\nMasukkan nomor WhatsApp (contoh: 081234567890):`, "");
+        if (inputHp && inputHp.trim()) {
+          targetHp = formatNoHpWa(inputHp.trim());
+          item.hp = inputHp.trim();
+          simpanKeStorage();
+          if (window.DB) {
+            DB.updateCustomerDebt(item.id, { customer_phone: inputHp.trim() });
+          }
+        }
+      }
+
+      const waUrl = targetHp 
+        ? `https://wa.me/${targetHp}?text=${encodeURIComponent(pesanRaw)}`
+        : `https://wa.me/?text=${encodeURIComponent(pesanRaw)}`;
+
+      // Buka WA di tab baru
+      window.open(waUrl, '_blank');
+
+      showAppModal(`Rincian bon untuk "${item.nama}" telah dibuka di WhatsApp!\n\nJika WhatsApp belum terbuka otomatis, Anda juga dapat menyalin pesan ini.`, {
+        judul: "Pesan WhatsApp Disiapkan",
+        tipe: "sukses",
+        tombolTeks: "Salin Teks Pesan",
+        onTutup: () => {
+          navigator.clipboard.writeText(pesanRaw);
+        }
+      });
+    }
+
+    function kapital(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initDataBon();
+    });
+
+    window.addEventListener('toko:data-updated', () => {
+      initDataBon();
+    });
+  </script>
+  <!-- Supabase Cloud SDK & Database Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="db.js"></script>
+  <script src="printer.js"></script>
+  <!-- Script Sinkronisasi Peran & Proteksi PIN Global -->
+  <script src="auth.js"></script>
+  <script src="pwa.js"></script>
+</body>
+</html>

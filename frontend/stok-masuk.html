@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stok Masuk (Kulakan) - Toko Berkah Garam</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-100 font-sans text-slate-800 antialiased min-h-screen">
+
+  <div class="min-h-screen flex flex-col md:flex-row">
+
+    <!-- =============================================================== -->
+    <!-- 1. SIDEBAR KHUSUS LAPTOP & TABLET (Konsisten 100% dengan Index) -->
+    <!-- =============================================================== -->
+    <aside class="hidden md:flex flex-col w-64 lg:w-72 bg-slate-900 text-slate-300 p-5 shrink-0 border-r border-slate-800 sticky top-0 h-screen overflow-y-auto">
+      
+      <!-- Brand Logo Toko -->
+      <div class="flex items-center gap-3 pb-6 border-b border-slate-800">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-white flex items-center justify-center text-xl font-bold shadow-lg shadow-emerald-500/20">
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-extrabold text-white tracking-tight">Toko Berkah</h1>
+          <p id="roleBadgeSidebar" class="text-xs text-emerald-400 font-semibold flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Mode Pemilik (Aktif)
+          </p>
+        </div>
+      </div>
+
+      <!-- Menu Navigasi Utama Desktop -->
+      <nav class="flex-1 py-6 space-y-1.5">
+        <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-3 block mb-2">Menu Utama</span>
+        
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-chart-pie w-5 text-center text-slate-300"></i>
+          <span>Dashboard Ringkasan</span>
+        </a>
+
+        <a href="kasir.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-cash-register w-5 text-center text-emerald-400 text-base"></i>
+          <span>Kasir Penjualan</span>
+        </a>
+
+        <a href="buku-bon.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-clipboard-list w-5 text-center text-amber-400 text-base"></i>
+          <span>Buku Bon & Hutang</span>
+        </a>
+
+        <a href="stok.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-boxes-stacked w-5 text-center text-blue-400 text-base"></i>
+          <span>Stok & Multi-Gudang</span>
+        </a>
+
+        <a href="stok-masuk.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl bg-indigo-600 text-white font-bold text-sm shadow-md shadow-indigo-600/30">
+          <i class="fa-solid fa-truck-loading w-5 text-center text-white text-base"></i>
+          <span>Stok Masuk (Kulakan)</span>
+        </a>
+
+        <!-- MENU KHUSUS PEMILIK (BISA DISEMBUNYIKAN DI MODE PENJAGA) -->
+        <div id="ownerMenuSection" class="space-y-1.5 pt-2">
+          <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-3 block pt-2 mb-2">Akses Pemilik Toko</span>
+
+          <a href="buka-karung.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-box-open w-5 text-center text-purple-400 text-base"></i>
+            <span>Buka Karung Garam</span>
+          </a>
+
+          <a href="ambil-uang.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-hand-holding-dollar w-5 text-center text-orange-400 text-base"></i>
+            <span>Ambil Uang (Prive/Biaya)</span>
+          </a>
+
+          <a href="tutup-kasir.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-lock w-5 text-center text-rose-400 text-base"></i>
+            <span>Tutup Kasir Harian</span>
+          </a>
+
+          <a href="laporan.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-teal-400 text-base"></i>
+            <span>Laporan & Backup Drive</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Profil & Tombol Ganti Peran Bawah -->
+      <div class="pt-4 border-t border-slate-800 space-y-3">
+        <button onclick="toggleUserRole()" id="btnSwitchRoleSidebar" class="w-full py-2.5 px-3 bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs rounded-xl border border-slate-700 flex items-center justify-between transition">
+          <span class="flex items-center gap-2">
+            <i class="fa-solid fa-user-shield text-amber-400"></i>
+            <span id="labelSwitchRoleSidebar">Ganti ke Mode Penjaga</span>
+          </span>
+          <i class="fa-solid fa-chevron-right text-[10px]"></i>
+        </button>
+
+        <div class="flex items-center justify-between text-xs px-1 text-slate-400">
+          <span id="roleDescSidebar">Akses: Semua Fitur Terbuka</span>
+          <span class="text-emerald-400 font-bold">Online</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- KONTEN UTAMA RESPONSIF -->
+    <div class="flex-1 flex flex-col min-h-screen min-w-0">
+
+      <!-- TOPBAR DESKTOP -->
+      <header class="hidden md:flex flex-wrap items-center justify-between gap-3 bg-white border-b border-slate-200 px-6 lg:px-8 py-4 sticky top-0 z-20">
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-900">Form Stok Masuk (Kulakan Barang)</h2>
+          <p class="text-xs text-slate-500">Mencatat pembelian barang supplier & penyesuaian modal kas</p>
+        </div>
+        <a href="stok.html" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl flex items-center gap-2 transition whitespace-nowrap">
+          <i class="fa-solid fa-arrow-left"></i> Kembali ke Stok
+        </a>
+      </header>
+
+      <!-- HEADER MOBILE -->
+      <header class="md:hidden bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-4 pt-6 sticky top-0 z-30 shadow-md">
+        <div class="flex items-center justify-between">
+          <a href="stok.html" class="flex items-center gap-1.5 bg-white/20 px-3 py-1.5 rounded-full text-xs font-bold">
+            <i class="fa-solid fa-arrow-left"></i> Kembali
+          </a>
+          <h1 class="text-lg font-bold">Stok Masuk (Kulakan)</h1>
+          <div class="w-8"></div>
+        </div>
+        <p class="text-xs text-blue-200 mt-2 text-center">Bisa pilih barang lama atau ketik barang baru bebas</p>
+      </header>
+
+      <!-- MAIN AREA: 2 KOLOM DI LAPTOP/TABLET, 1 KOLOM DI MOBILE -->
+      <main class="flex-1 p-4 md:p-8 max-w-7xl w-full mx-auto pb-32 md:pb-8">
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          <!-- KOLOM KIRI (2 SPAN): ASAL BARANG & LIST ITEM BELANJA -->
+          <div class="lg:col-span-2 space-y-5">
+
+            <!-- 1. Sumber Pembelian & Lokasi Simpan -->
+            <section class="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm space-y-4">
+              <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-500">
+                <i class="fa-solid fa-truck-ramp-box text-blue-600 mr-1.5"></i> Asal Barang & Lokasi Simpan
+              </label>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-600 mb-1.5">Beli Dari Mana?</label>
+                  <div class="grid grid-cols-2 gap-2">
+                    <button type="button" onclick="selectSupplier(this, 'supplier')" class="sup-btn py-2.5 px-3 rounded-xl border-2 border-blue-500 bg-blue-50 text-blue-900 font-bold text-xs text-left transition flex items-center justify-between">
+                      <span><i class="fa-solid fa-industry mr-1 text-blue-600"></i> Pabrik / Agen</span>
+                      <i class="fa-solid fa-circle-check text-blue-600"></i>
+                    </button>
+                    <button type="button" onclick="selectSupplier(this, 'grosir')" class="sup-btn py-2.5 px-3 rounded-xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-xs text-left transition flex items-center justify-between">
+                      <span><i class="fa-solid fa-shop mr-1 text-slate-400"></i> Toko Grosir</span>
+                      <i class="fa-regular fa-circle text-slate-300"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-slate-600 mb-1.5">Simpan Di Mana?</label>
+                  <div class="grid grid-cols-2 gap-2">
+                    <label class="flex items-center gap-2 p-2.5 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer">
+                      <input type="radio" name="lokasi" value="toko" checked class="text-blue-600 focus:ring-blue-500" />
+                      <span class="text-xs font-bold text-slate-800"><i class="fa-solid fa-store text-emerald-500 mr-1"></i> Toko Depan</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2.5 bg-slate-50 border border-slate-200 rounded-xl cursor-pointer">
+                      <input type="radio" name="lokasi" value="gudang" class="text-blue-600 focus:ring-blue-500" />
+                      <span class="text-xs font-bold text-slate-800"><i class="fa-solid fa-warehouse text-blue-500 mr-1"></i> Gudang Garam</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- 2. Rincian Barang yang Dibeli (Free-Text Bebas) -->
+            <section class="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm space-y-4">
+              <div class="flex items-center justify-between border-b pb-3">
+                <div>
+                  <h3 class="font-extrabold text-sm text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-boxes-packing text-blue-600"></i> Barang yang Dibeli
+                  </h3>
+                  <p class="text-xs text-slate-400">Bebas ketik barang baru seperti Teh Kotak, Aqua Dus, dll.</p>
+                </div>
+                <button type="button" onclick="tambahBaris()" class="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 px-3 py-2 rounded-xl font-extrabold flex items-center gap-1.5 transition">
+                  <i class="fa-solid fa-plus-circle"></i> Tambah Item Lain
+                </button>
+              </div>
+
+              <!-- List Baris Belanja -->
+              <div id="itemList" class="space-y-3.5">
+                
+                <div class="item-row p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+                  <div class="flex items-center justify-between">
+                    <div class="flex bg-slate-200/80 p-0.5 rounded-lg text-xs font-bold">
+                      <button type="button" onclick="toggleItemMode(this, 'select')" class="mode-select-btn px-2.5 py-1 rounded-md text-slate-600">Pilih dari Daftar</button>
+                      <button type="button" onclick="toggleItemMode(this, 'freetext')" class="mode-freetext-btn px-2.5 py-1 rounded-md bg-white text-blue-700 shadow-sm">✍️ Ketik Baru Bebas</button>
+                    </div>
+                  </div>
+
+                  <div class="select-container hidden">
+                    <select onchange="updateRowUnitFromSelect(this)" class="item-select w-full text-xs font-bold bg-white p-2.5 rounded-xl border border-slate-300">
+                      <option value="Garam Krosok (Karung 50kg)" data-harga="95000">Garam Krosok (Karung 50kg)</option>
+                      <option value="Garam Sawi (1 Bal)" data-harga="32000">Garam Sawi (1 Bal / 20 bks)</option>
+                      <option value="Beras Ramos 5kg" data-harga="64000">Beras Ramos 5kg</option>
+                      <option value="Aqua Galon Isi" data-harga="16000">Aqua Galon Isi (Supplier)</option>
+                    </select>
+                  </div>
+
+                  <div class="freetext-container space-y-2">
+                    <div>
+                      <label class="text-xs font-bold text-slate-700 block mb-1">Nama Barang Baru:</label>
+                      <input type="text" value="Teh Kotak 200ml (1 Karton isi 24)" placeholder="Misal: Aqua Dus Gelas, Aqua 600ml..." class="item-name-input w-full font-bold text-xs p-2.5 bg-white border border-blue-300 rounded-xl" />
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                      <div>
+                        <label class="text-[11px] font-semibold text-slate-500 block mb-0.5">Satuan Kulakan:</label>
+                        <select class="satuan-select w-full text-xs font-bold p-2 bg-white border border-slate-300 rounded-xl">
+                          <option value="Karton" selected>Karton</option>
+                          <option value="Dus">Dus</option>
+                          <option value="Pak">Pak / Bal</option>
+                          <option value="Sak">Sak / Karung</option>
+                          <option value="Botol">Botol / Pcs</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label class="text-[11px] font-semibold text-slate-500 block mb-0.5">Rencana Harga Jual Toko:</label>
+                        <div class="relative">
+                          <span class="absolute left-2 top-2 text-slate-400 font-bold text-xs">Rp</span>
+                          <input type="number" value="75000" class="w-full text-xs font-bold p-2 pl-7 bg-emerald-50 border border-emerald-300 rounded-xl text-emerald-800" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-3 text-xs pt-2 border-t border-slate-200">
+                    <div>
+                      <label class="text-[11px] text-slate-500 font-semibold block mb-0.5">Berapa Banyak (Qty)?</label>
+                      <input type="number" value="3" min="1" oninput="hitungTotalNota()" class="qty-inp w-full font-extrabold text-sm p-2 bg-white border border-slate-300 rounded-xl text-center" />
+                    </div>
+                    <div>
+                      <label class="text-[11px] text-slate-500 font-semibold block mb-0.5">Harga Beli Satuan (Rp):</label>
+                      <input type="number" value="62000" step="500" oninput="hitungTotalNota()" class="harga-inp w-full font-extrabold text-sm p-2 bg-white border border-slate-300 rounded-xl text-right" />
+                    </div>
+                  </div>
+
+                  <div class="flex items-center justify-between text-xs pt-1 border-t border-slate-200">
+                    <span class="text-slate-500">Subtotal:</span>
+                    <span class="subtotal-val font-extrabold text-slate-900">Rp 186.000</span>
+                  </div>
+                </div>
+
+              </div>
+            </section>
+
+          </div>
+
+          <!-- KOLOM KANAN (1 SPAN): PEMBAYARAN & SUMMARY STICKY DI DESKTOP -->
+          <div class="space-y-5">
+
+            <section class="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm space-y-4 sticky top-24">
+              <label class="block text-xs font-extrabold uppercase tracking-wider text-slate-500 border-b pb-2">
+                <i class="fa-solid fa-wallet text-blue-600 mr-1.5"></i> Pembayaran & Kas
+              </label>
+
+              <!-- Status Bayar -->
+              <div class="grid grid-cols-2 gap-2">
+                <button type="button" onclick="selectBayar(this, 'lunas')" class="bayar-btn py-2.5 px-3 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-bold text-xs text-left transition flex items-center justify-between">
+                  <span><i class="fa-solid fa-money-bill-wave text-emerald-600 mr-1"></i> Lunas</span>
+                  <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                </button>
+                <button type="button" onclick="selectBayar(this, 'tempo')" class="bayar-btn py-2.5 px-3 rounded-xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-xs text-left transition flex items-center justify-between">
+                  <span><i class="fa-solid fa-clock text-slate-400 mr-1"></i> Tempo</span>
+                  <i class="fa-regular fa-circle text-slate-300"></i>
+                </button>
+              </div>
+
+              <!-- Pilihan Kotak Kas -->
+              <div id="kotakKasSection" class="space-y-1.5 text-xs">
+                <label class="font-semibold text-slate-600">Potong Dari Kotak Kas Mana?</label>
+                <select id="kasSumber" class="w-full font-bold bg-slate-50 p-2.5 rounded-xl border border-slate-300">
+                  <option value="laci">💵 Laci Kasir Toko (Saldo: Rp 1.450.000)</option>
+                  <option value="modal_garam">📦 Kotak Modal Garam (Saldo: Rp 3.800.000)</option>
+                  <option value="bank">🏦 Rekening Bank / Transfer</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-xs font-semibold text-slate-600 block mb-1">Nomor Nota / Ket:</label>
+                <input type="text" placeholder="Misal: Nota #92 supplier" class="w-full p-2 text-xs bg-slate-50 border border-slate-300 rounded-xl" />
+              </div>
+
+              <!-- Ringkasan Total Tagihan -->
+              <div class="pt-4 border-t border-slate-200">
+                <span class="text-xs text-slate-500 font-semibold block">Total Biaya Kulakan:</span>
+                <span id="grandTotalNota" class="text-3xl font-black text-blue-700 block mt-1">Rp 186.000</span>
+              </div>
+
+              <button 
+                type="button" 
+                onclick="simpanStokMasuk()" 
+                class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.98] text-white font-extrabold text-sm rounded-2xl shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 transition">
+                <i class="fa-solid fa-boxes-packing text-base"></i>
+                <span>SIMPAN STOK MASUK</span>
+              </button>
+            </section>
+
+          </div>
+
+        </div>
+
+      </main>
+
+      <!-- BOTTOM NAV MOBILE -->
+      <nav class="md:hidden bg-white/95 backdrop-blur-md border-t border-slate-200 fixed bottom-0 inset-x-0 flex justify-around py-2.5 z-40">
+        <a href="index.html" class="flex flex-col items-center text-slate-400">
+          <i class="fa-solid fa-house text-lg"></i>
+          <span class="text-[10px] mt-1">Beranda</span>
+        </a>
+        <a href="kasir.html" class="flex flex-col items-center text-slate-400">
+          <i class="fa-solid fa-cart-shopping text-lg"></i>
+          <span class="text-[10px] mt-1">Kasir</span>
+        </a>
+        <a href="buku-bon.html" class="flex flex-col items-center text-slate-400 hover:text-amber-600">
+          <i class="fa-solid fa-clipboard-list text-lg"></i>
+          <span class="text-[10px] mt-1">Buku Bon</span>
+        </a>
+        <a href="stok.html" class="flex flex-col items-center text-blue-600 font-bold">
+          <i class="fa-solid fa-box text-lg"></i>
+          <span class="text-[10px] mt-1">Stok</span>
+        </a>
+        <a href="laporan.html" class="flex flex-col items-center text-slate-400">
+          <i class="fa-solid fa-chart-pie text-lg"></i>
+          <span class="text-[10px] mt-1">Laporan</span>
+        </a>
+      </nav>
+
+    </div>
+
+  </div>
+
+  <script>
+    function selectSupplier(btn, type) {
+      document.querySelectorAll('.sup-btn').forEach(b => {
+        b.className = "sup-btn py-2.5 px-3 rounded-xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-xs text-left transition flex items-center justify-between";
+        b.querySelector('i:last-child').className = "fa-regular fa-circle text-slate-300";
+      });
+      btn.className = "sup-btn py-2.5 px-3 rounded-xl border-2 border-blue-500 bg-blue-50 text-blue-900 font-bold text-xs text-left transition flex items-center justify-between";
+      btn.querySelector('i:last-child').className = "fa-solid fa-circle-check text-blue-600";
+    }
+
+    function selectBayar(btn, type) {
+      document.querySelectorAll('.bayar-btn').forEach(b => {
+        b.className = "bayar-btn py-2.5 px-3 rounded-xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-xs text-left transition flex items-center justify-between";
+        b.querySelector('i:last-child').className = "fa-regular fa-circle text-slate-300";
+      });
+      
+      const kotakKas = document.getElementById('kotakKasSection');
+      if (type === 'lunas') {
+        btn.className = "bayar-btn py-2.5 px-3 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-bold text-xs text-left transition flex items-center justify-between";
+        btn.querySelector('i:last-child').className = "fa-solid fa-circle-check text-emerald-600";
+        kotakKas.classList.remove('hidden');
+      } else {
+        btn.className = "bayar-btn py-2.5 px-3 rounded-xl border-2 border-amber-500 bg-amber-50 text-amber-900 font-bold text-xs text-left transition flex items-center justify-between";
+        btn.querySelector('i:last-child').className = "fa-solid fa-circle-check text-amber-600";
+        kotakKas.classList.add('hidden');
+      }
+    }
+
+    function toggleItemMode(btn, mode) {
+      const row = btn.closest('.item-row');
+      const selectBtn = row.querySelector('.mode-select-btn');
+      const freetextBtn = row.querySelector('.mode-freetext-btn');
+      const selectContainer = row.querySelector('.select-container');
+      const freetextContainer = row.querySelector('.freetext-container');
+
+      if (mode === 'select') {
+        selectBtn.className = "mode-select-btn px-2.5 py-1 rounded-md bg-white text-blue-700 shadow-sm";
+        freetextBtn.className = "mode-freetext-btn px-2.5 py-1 rounded-md text-slate-600";
+        selectContainer.classList.remove('hidden');
+        freetextContainer.classList.add('hidden');
+      } else {
+        freetextBtn.className = "mode-freetext-btn px-2.5 py-1 rounded-md bg-white text-blue-700 shadow-sm";
+        selectBtn.className = "mode-select-btn px-2.5 py-1 rounded-md text-slate-600";
+        freetextContainer.classList.remove('hidden');
+        selectContainer.classList.add('hidden');
+      }
+    }
+
+    let dbProductsList = [];
+
+    async function initStokMasukOptions() {
+      if (window.DB) {
+        try {
+          dbProductsList = await DB.getProducts();
+          populateAllSelects();
+        } catch(e) {
+          console.warn("Gagal load produk untuk stok masuk:", e);
+        }
+      }
+    }
+
+    function populateAllSelects() {
+      if (!dbProductsList || dbProductsList.length === 0) return;
+      const optsHtml = dbProductsList.map(p => `
+        <option value="${p.name}" data-harga="${p.cost_price}" data-unit="${p.unit || 'Pcs'}" data-sell="${p.sell_price}">${p.name} (Modal: Rp ${new Intl.NumberFormat('id-ID').format(p.cost_price)})</option>
+      `).join('');
+
+      document.querySelectorAll('.item-select').forEach(sel => {
+        sel.innerHTML = optsHtml;
+      });
+    }
+
+    function updateRowUnitFromSelect(select) {
+      const opt = select.options[select.selectedIndex];
+      const row = select.closest('.item-row');
+      const harga = opt.getAttribute('data-harga');
+      if (harga && row) {
+        const hargaInp = row.querySelector('.harga-inp');
+        if (hargaInp) hargaInp.value = harga;
+      }
+      hitungTotalNota();
+    }
+
+    function hitungTotalNota() {
+      let grandTotal = 0;
+      document.querySelectorAll('.item-row').forEach(row => {
+        const qty = parseInt(row.querySelector('.qty-inp').value) || 0;
+        const harga = parseInt(row.querySelector('.harga-inp').value) || 0;
+        const subtotal = qty * harga;
+        grandTotal += subtotal;
+        const subtotalEl = row.querySelector('.subtotal-val');
+        if (subtotalEl) subtotalEl.innerText = `Rp ${new Intl.NumberFormat('id-ID').format(subtotal)}`;
+      });
+      const grandTotalEl = document.getElementById('grandTotalNota');
+      if (grandTotalEl) grandTotalEl.innerText = `Rp ${new Intl.NumberFormat('id-ID').format(grandTotal)}`;
+      return grandTotal;
+    }
+
+    function tambahBaris() {
+      const container = document.getElementById('itemList');
+      const newRow = document.createElement('div');
+      newRow.className = "item-row p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 relative";
+      
+      const optsHtml = (dbProductsList && dbProductsList.length > 0)
+        ? dbProductsList.map(p => `<option value="${p.name}" data-harga="${p.cost_price}" data-unit="${p.unit || 'Pcs'}" data-sell="${p.sell_price}">${p.name} (Modal: Rp ${new Intl.NumberFormat('id-ID').format(p.cost_price)})</option>`).join('')
+        : `<option value="Aqua Dus Gelas">Aqua Dus Gelas</option>`;
+
+      newRow.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div class="flex bg-slate-200/80 p-0.5 rounded-lg text-xs font-bold">
+            <button type="button" onclick="toggleItemMode(this, 'select')" class="mode-select-btn px-2.5 py-1 rounded-md text-slate-600">Pilih dari Daftar</button>
+            <button type="button" onclick="toggleItemMode(this, 'freetext')" class="mode-freetext-btn px-2.5 py-1 rounded-md bg-white text-blue-700 shadow-sm">✍️ Ketik Baru Bebas</button>
+          </div>
+          <button type="button" onclick="this.closest('.item-row').remove(); hitungTotalNota();" class="text-rose-500 hover:text-rose-700 text-sm p-1">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+
+        <div class="select-container hidden">
+          <select onchange="updateRowUnitFromSelect(this)" class="item-select w-full text-xs font-bold bg-white p-2.5 rounded-xl border border-slate-300">
+            ${optsHtml}
+          </select>
+        </div>
+
+        <div class="freetext-container space-y-2">
+          <div>
+            <label class="text-xs font-bold text-slate-700 block mb-1">Nama Barang Baru:</label>
+            <input type="text" placeholder="Misal: Aqua Dus Gelas, Aqua 600ml..." class="item-name-input w-full font-bold text-xs p-2.5 bg-white border border-blue-300 rounded-xl" />
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div>
+              <label class="text-[11px] font-semibold text-slate-500 block mb-0.5">Satuan Kulakan:</label>
+              <select class="satuan-select w-full text-xs font-bold p-2 bg-white border border-slate-300 rounded-xl">
+                <option value="Dus" selected>Dus</option>
+                <option value="Karton">Karton</option>
+                <option value="Pak">Pak / Bal</option>
+                <option value="Karung">Karung</option>
+                <option value="Botol">Botol / Pcs</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-[11px] font-semibold text-slate-500 block mb-0.5">Rencana Harga Jual Toko:</label>
+              <input type="number" placeholder="Harga jual" class="sell-inp w-full text-xs font-bold p-2 bg-emerald-50 border border-emerald-300 rounded-xl text-emerald-800" />
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 text-xs pt-2 border-t border-slate-200">
+          <div>
+            <label class="text-[11px] text-slate-500 font-semibold block mb-0.5">Berapa Banyak (Qty)?</label>
+            <input type="number" value="1" min="1" oninput="hitungTotalNota()" class="qty-inp w-full font-extrabold text-sm p-2 bg-white border border-slate-300 rounded-xl text-center" />
+          </div>
+          <div>
+            <label class="text-[11px] text-slate-500 font-semibold block mb-0.5">Harga Beli Satuan (Rp):</label>
+            <input type="number" value="25000" step="500" oninput="hitungTotalNota()" class="harga-inp w-full font-extrabold text-sm p-2 bg-white border border-slate-300 rounded-xl text-right" />
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs pt-1 border-t border-slate-200">
+          <span class="text-slate-500">Subtotal:</span>
+          <span class="subtotal-val font-extrabold text-slate-900">Rp 25.000</span>
+        </div>
+      `;
+      container.appendChild(newRow);
+      hitungTotalNota();
+    }
+
+    async function simpanStokMasuk() {
+      const rows = document.querySelectorAll('.item-row');
+      if (rows.length === 0) {
+        showAppModal("Belum ada barang kulakan yang ditambahkan.", { tipe: "warning" });
+        return;
+      }
+
+      const lokasiRadio = document.querySelector('input[name="lokasi"]:checked');
+      const lokasi = lokasiRadio ? lokasiRadio.value : 'toko';
+
+      const itemsToSave = [];
+      rows.forEach(r => {
+        const isFreetext = !r.querySelector('.freetext-container').classList.contains('hidden');
+        const qty = parseInt(r.querySelector('.qty-inp').value) || 1;
+        const buyPrice = parseInt(r.querySelector('.harga-inp').value) || 0;
+
+        let name = '';
+        let unit = 'Dus';
+        let sellPrice = buyPrice * 1.2;
+
+        if (isFreetext) {
+          name = r.querySelector('.item-name-input').value.trim() || 'Barang Baru';
+          unit = r.querySelector('.satuan-select').value;
+          const sellInp = r.querySelector('.sell-inp') || r.querySelector('input[type="number"][class*="emerald"]');
+          if (sellInp && sellInp.value) sellPrice = parseInt(sellInp.value);
+        } else {
+          const sel = r.querySelector('.item-select');
+          name = sel.value;
+          const opt = sel.selectedOptions[0];
+          if (opt) {
+            unit = opt.getAttribute('data-unit') || 'Pcs';
+            sellPrice = parseInt(opt.getAttribute('data-sell')) || (buyPrice * 1.2);
+          }
+        }
+
+        itemsToSave.push({
+          name: name,
+          unit: unit,
+          qty: qty,
+          cost_price: buyPrice,
+          sell_price: sellPrice
+        });
+      });
+
+      const grandTotal = hitungTotalNota();
+
+      if (window.DB) {
+        await DB.processStokMasuk("Supplier / Grosir Toko", lokasi, itemsToSave, grandTotal, "Kulakan stok masuk");
+      }
+
+      showAppModal(`Nota Kulakan Stok Masuk Senilai Rp ${new Intl.NumberFormat('id-ID').format(grandTotal)} Berhasil Disimpan!\n\n• Stok barang di ${lokasi === 'gudang' ? 'Gudang Garam' : 'Toko Depan'} otomatis bertambah.\n• Pengeluaran kas tercatat di laporan.`, {
+        judul: "Stok Masuk Tersimpan",
+        tipe: "sukses",
+        tombolTeks: "Lihat Stok Barang",
+        onTutup: () => {
+          window.location.href = "stok.html";
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initStokMasukOptions();
+      hitungTotalNota();
+    });
+  </script>
+  <!-- Supabase Cloud SDK & Database Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="db.js"></script>
+  <!-- Script Sinkronisasi Peran & Proteksi PIN Global -->
+  <script src="auth.js"></script>
+  <script src="pwa.js"></script>
+</body>
+</html>

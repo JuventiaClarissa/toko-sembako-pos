@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stok Barang - Toko Berkah Garam</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+</head>
+<body class="bg-slate-100 font-sans text-slate-800 antialiased min-h-screen">
+
+  <div class="min-h-screen flex flex-col md:flex-row">
+
+    <!-- =============================================================== -->
+    <!-- 1. SIDEBAR KHUSUS LAPTOP & TABLET (Konsisten 100% dengan Index) -->
+    <!-- =============================================================== -->
+    <aside class="hidden md:flex flex-col w-64 lg:w-72 bg-slate-900 text-slate-300 p-5 shrink-0 border-r border-slate-800 sticky top-0 h-screen overflow-y-auto">
+      
+      <!-- Brand Logo Toko -->
+      <div class="flex items-center gap-3 pb-6 border-b border-slate-800">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-white flex items-center justify-center text-xl font-bold shadow-lg shadow-emerald-500/20">
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-extrabold text-white tracking-tight">Toko Berkah</h1>
+          <p id="roleBadgeSidebar" class="text-xs text-emerald-400 font-semibold flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Mode Pemilik (Aktif)
+          </p>
+        </div>
+      </div>
+
+      <!-- Menu Navigasi Utama Desktop -->
+      <nav class="flex-1 py-6 space-y-1.5">
+        <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-3 block mb-2">Menu Utama</span>
+        
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-chart-pie w-5 text-center text-slate-300"></i>
+          <span>Dashboard Ringkasan</span>
+        </a>
+
+        <a href="kasir.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-cash-register w-5 text-center text-emerald-400 text-base"></i>
+          <span>Kasir Penjualan</span>
+        </a>
+
+        <!-- MENU BUKU BON -->
+        <a href="buku-bon.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-clipboard-list w-5 text-center text-amber-400 text-base"></i>
+          <span>Buku Bon & Hutang</span>
+        </a>
+
+        <a href="stok.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl bg-blue-600 text-white font-bold text-sm shadow-md shadow-blue-600/30">
+          <i class="fa-solid fa-boxes-stacked w-5 text-center text-white text-base"></i>
+          <span>Stok & Multi-Gudang</span>
+        </a>
+
+        <a href="stok-masuk.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-truck-loading w-5 text-center text-indigo-400 text-base"></i>
+          <span>Stok Masuk (Beli Barang)</span>
+        </a>
+
+        <!-- MENU KHUSUS PEMILIK (BISA DISEMBUNYIKAN DI MODE PENJAGA) -->
+        <div id="ownerMenuSection" class="space-y-1.5 pt-2">
+          <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-3 block pt-2 mb-2">Akses Pemilik Toko</span>
+
+          <a href="buka-karung.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-box-open w-5 text-center text-purple-400 text-base"></i>
+            <span>Buka Karung Garam</span>
+          </a>
+
+          <a href="ambil-uang.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-hand-holding-dollar w-5 text-center text-orange-400 text-base"></i>
+            <span>Ambil Uang (Prive/Biaya)</span>
+          </a>
+
+          <a href="tutup-kasir.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-lock w-5 text-center text-rose-400 text-base"></i>
+            <span>Tutup Kasir Harian</span>
+          </a>
+
+          <a href="laporan.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-teal-400 text-base"></i>
+            <span>Laporan & Backup Drive</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Profil & Tombol Ganti Peran Bawah -->
+      <div class="pt-4 border-t border-slate-800 space-y-3">
+        <button onclick="toggleUserRole()" id="btnSwitchRoleSidebar" class="w-full py-2.5 px-3 bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs rounded-xl border border-slate-700 flex items-center justify-between transition">
+          <span class="flex items-center gap-2">
+            <i class="fa-solid fa-user-shield text-amber-400"></i>
+            <span id="labelSwitchRoleSidebar">Ganti ke Mode Penjaga</span>
+          </span>
+          <i class="fa-solid fa-chevron-right text-[10px]"></i>
+        </button>
+
+        <div class="flex items-center justify-between text-xs px-1 text-slate-400">
+          <span id="roleDescSidebar">Akses: Semua Fitur Terbuka</span>
+          <span class="text-emerald-400 font-bold">Online</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- KONTEN UTAMA STOK (RESPONSIF) -->
+    <div class="flex-1 flex flex-col min-h-screen min-w-0">
+
+      <!-- TOPBAR DESKTOP -->
+      <header class="hidden md:flex flex-wrap items-center justify-between gap-3 bg-white border-b border-slate-200 px-6 lg:px-8 py-4 sticky top-0 z-20">
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-900">Manajemen Stok & Multi-Lokasi</h2>
+          <p class="text-xs text-slate-500">Monitoring Toko Depan & Gudang Garam</p>
+        </div>
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <a href="stok-masuk.html" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-md flex items-center gap-2 transition whitespace-nowrap">
+            <i class="fa-solid fa-truck-loading"></i>
+            <span>+ Stok Masuk (Beli Barang)</span>
+          </a>
+          <button onclick="bukaModalTambah()" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs rounded-xl shadow-md flex items-center gap-2 transition whitespace-nowrap">
+            <i class="fa-solid fa-plus"></i>
+            <span>+ Produk Baru (Bebas)</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- HEADER KHUSUS MOBILE -->
+      <header class="md:hidden bg-blue-600 text-white p-4 pt-6 sticky top-0 z-30 shadow-md">
+        <div class="flex items-center justify-between">
+          <a href="index.html" class="flex items-center gap-1.5 bg-white/20 px-3 py-1.5 rounded-full text-xs font-bold">
+            <i class="fa-solid fa-arrow-left"></i> Menu
+          </a>
+          <h1 class="text-lg font-bold">Stok Barang</h1>
+          <button onclick="bukaModalTambah()" class="bg-white/20 text-white px-2.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1">
+            <i class="fa-solid fa-plus"></i> Baru
+          </button>
+        </div>
+
+        <div class="flex bg-blue-700/60 p-1 rounded-2xl mt-4">
+          <button id="tabTokoMobile" onclick="switchTab('toko')" class="flex-1 py-2 text-xs font-bold rounded-xl bg-white text-blue-800 shadow-sm transition">
+            <i class="fa-solid fa-shop mr-1"></i> Toko Depan
+          </button>
+          <button id="tabGudangMobile" onclick="switchTab('gudang')" class="flex-1 py-2 text-xs font-bold rounded-xl text-blue-100 transition">
+            <i class="fa-solid fa-warehouse mr-1"></i> Gudang Garam
+          </button>
+        </div>
+      </header>
+
+      <!-- BODY UTAMA RESPONSIF -->
+      <main class="flex-1 p-4 md:p-8 space-y-6 max-w-7xl w-full mx-auto pb-24 md:pb-8">
+
+        <!-- Tab & Filter Lokasi Desktop -->
+        <div class="hidden md:flex items-center justify-between bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2">
+            <button id="tabTokoDesktop" onclick="switchTab('toko')" class="px-5 py-2.5 rounded-xl text-xs font-extrabold bg-blue-600 text-white shadow-sm flex items-center gap-2">
+              <i class="fa-solid fa-shop"></i> Toko Depan (Barang Siap Jual)
+            </button>
+            <button id="tabGudangDesktop" onclick="switchTab('gudang')" class="px-5 py-2.5 rounded-xl text-xs font-extrabold bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center gap-2">
+              <i class="fa-solid fa-warehouse text-blue-600"></i> Gudang Garam Belakang (125 Karung)
+            </button>
+          </div>
+          <div class="text-xs text-slate-400">Total 6 Produk Aktif</div>
+        </div>
+
+        <!-- Tombol Aksi Cepat Mobile -->
+        <div class="md:hidden grid grid-cols-2 gap-2.5">
+          <a href="stok-masuk.html" class="flex items-center justify-center gap-2 py-3 bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-sm">
+            <i class="fa-solid fa-truck-loading"></i>
+            <span>Stok Masuk</span>
+          </a>
+          <button onclick="bukaModalTambah()" class="flex items-center justify-center gap-2 py-3 bg-blue-700 text-white font-bold text-xs rounded-xl shadow-sm">
+            <i class="fa-solid fa-square-plus"></i>
+            <span>+ Produk Bebas</span>
+          </button>
+        </div>
+
+        <!-- DAFTAR PRODUK TOKO (Grid responsif: 1 kolom di HP, 2-3 kolom di Laptop) -->
+        <div id="listToko" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          <!-- Card 1 -->
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded">Toko Depan</span>
+                <h4 class="font-extrabold text-sm text-slate-900 mt-1">Garam Krosok (Karung 50kg)</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Modal: Rp 95.000 • Jual: Rp 110.000</p>
+              </div>
+              <span id="stokTokoGaramBadge" class="px-2.5 py-1 bg-amber-100 text-amber-800 text-xs font-extrabold rounded-lg">8 Karung</span>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span id="stokTokoGaramStatus" class="text-amber-600 font-bold">⚠️ Sisa Sedikit</span>
+              <div class="flex items-center gap-2">
+                <button onclick="switchTab('gudang'); bukaModalAmbilGudang();" class="text-indigo-600 font-bold hover:underline">
+                  + Ambil Gudang
+                </button>
+                <span class="text-slate-300">•</span>
+                <a href="stok-masuk.html" class="text-blue-600 font-bold hover:underline" title="Belanja stok baru dari agen/supplier">+ Tambah Stok (Beli)</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-[10px] font-bold text-purple-700 bg-purple-100 px-2 py-0.5 rounded">Eceran Toko</span>
+                <h4 class="font-extrabold text-sm text-slate-900 mt-1">Garam Krosok (Eceran 1kg)</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Modal: Rp 2.083 • Jual: Rp 3.000</p>
+              </div>
+              <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-xs font-extrabold rounded-lg">45 Bungkus</span>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-emerald-600 font-bold">✓ Stok Aman</span>
+              <a href="buka-karung.html" class="text-purple-600 font-bold hover:underline">+ Buka Karung</a>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-[10px] font-bold text-teal-700 bg-teal-100 px-2 py-0.5 rounded">Minuman Dus</span>
+                <h4 class="font-extrabold text-sm text-slate-900 mt-1">Aqua Dus Gelas (1 Dus / 48)</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Modal: Rp 24.000 • Jual: Rp 28.000</p>
+              </div>
+              <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-xs font-extrabold rounded-lg">12 Dus</span>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-emerald-600 font-bold">✓ Stok Aman</span>
+              <a href="stok-masuk.html" class="text-blue-600 font-bold hover:underline" title="Belanja stok baru dari agen/supplier">+ Tambah Stok (Beli)</a>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-[10px] font-bold text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded">Showcase</span>
+                <h4 class="font-extrabold text-sm text-slate-900 mt-1">Teh Kotak 200ml (Karton)</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Modal: Rp 62.000 • Jual: Rp 75.000</p>
+              </div>
+              <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-xs font-extrabold rounded-lg">5 Karton</span>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-emerald-600 font-bold">✓ Stok Aman</span>
+              <a href="stok-masuk.html" class="text-blue-600 font-bold hover:underline" title="Belanja stok baru dari agen/supplier">+ Tambah Stok (Beli)</a>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="text-[10px] font-bold text-cyan-700 bg-cyan-100 px-2 py-0.5 rounded">Tukar Galon</span>
+                <h4 class="font-extrabold text-sm text-slate-900 mt-1">Aqua Galon (Tukar Kosong)</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Harga Isi Ulang: Rp 20.000</p>
+              </div>
+              <span class="px-2.5 py-1 bg-cyan-100 text-cyan-800 text-xs font-extrabold rounded-lg">15 Isi • 8 Ksg</span>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-cyan-700 font-bold">8 Kosong di Toko</span>
+              <a href="stok-masuk.html" class="text-blue-600 font-bold hover:underline">Tukar Supplier</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- DAFTAR GUDANG KHUSUS GARAM -->
+        <div id="listGudang" class="hidden bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+          
+          <!-- Header Gudang & Tombol Aksi -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-100 text-blue-800">
+                  <i class="fa-solid fa-warehouse mr-1"></i> Area Belakang Toko
+                </span>
+                <span class="text-xs text-slate-400">• Kapasitas Muat 300 Karung</span>
+              </div>
+              <h3 class="font-black text-xl text-slate-900 mt-1">Gudang Penyimpanan Garam Krosok</h3>
+              <p class="text-xs text-slate-500">Khusus karung 50kg kapasitas besar (kulakan partai & stok cadangan)</p>
+            </div>
+            
+            <div class="flex items-center gap-2 shrink-0">
+              <!-- Tombol Sesuaikan / Opname -->
+              <button onclick="bukaModalKoreksiGudang()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl flex items-center gap-1.5 transition">
+                <i class="fa-solid fa-pen-to-square text-slate-500"></i>
+                <span>Koreksi Fisik</span>
+              </button>
+
+              <!-- Tombol Ambil / Pindahkan -->
+              <button onclick="bukaModalAmbilGudang()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs rounded-xl shadow-md shadow-indigo-600/20 flex items-center gap-2 transition active:scale-95">
+                <i class="fa-solid fa-dolly text-sm"></i>
+                <span>Ambil / Pindahkan Stok</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Kartu Utama Stok Garam di Gudang -->
+          <div class="p-5 md:p-6 bg-gradient-to-br from-blue-50/80 via-indigo-50/40 to-slate-50 border border-blue-200 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-inner">
+            <div class="space-y-1.5">
+              <span class="text-[10px] font-extrabold tracking-wider text-blue-600 uppercase">Komoditas Utama</span>
+              <h4 class="font-black text-xl text-slate-900">Garam Krosok (Karung 50kg)</h4>
+              <p class="text-xs text-slate-500">
+                Harga Modal Beli: <b class="text-slate-700 font-bold">Rp 95.000</b> / karung
+              </p>
+              <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/80 rounded-xl border border-blue-200 text-xs font-bold text-blue-800 shadow-sm mt-1">
+                <i class="fa-solid fa-weight-hanging text-blue-600"></i>
+                <span>Total Bobot Simpan: <b id="bobotGudangVal">~6.250 Kg</b></span>
+              </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl border border-blue-200 shadow-sm text-center sm:text-right min-w-[180px]">
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wide block">Stok Tersedia</span>
+              <div class="text-4xl font-black text-blue-700 tracking-tight my-0.5">
+                <span id="stokGudangVal">125</span>
+              </div>
+              <span id="labelStatusGudang" class="inline-block px-2.5 py-0.5 bg-emerald-100 text-emerald-800 text-[11px] font-extrabold rounded-md">
+                ✓ Siap Dipakai / Dijual
+              </span>
+            </div>
+          </div>
+
+          <!-- Petunjuk Cepat Pengambilan -->
+          <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl text-xs flex items-start gap-3">
+            <i class="fa-solid fa-circle-info text-amber-600 text-base mt-0.5 shrink-0"></i>
+            <div class="space-y-1 text-slate-700 leading-relaxed">
+              <p class="font-bold text-amber-900">Bagaimana Cara Mengurangi / Memperbarui Stok Saat Mengambil Garam?</p>
+              <p>Klik tombol ungu <b>"Ambil / Pindahkan Stok"</b> di atas. Anda bisa memilih apakah garam diambil untuk:
+                <b>(1) Dipindah ke Toko Depan</b>, <b>(2) Langsung Dijual Borongan / Partai Truk</b>, atau <b>(3) Dibawa untuk Buka Karung (Ecer 1kg)</b>. Sistem akan otomatis memotong stok gudang dan mencatat riwayatnya.
+              </p>
+            </div>
+          </div>
+
+          <!-- Tabel Riwayat Mutasi / Pengambilan Gudang -->
+          <div class="space-y-2 pt-2">
+            <div class="flex items-center justify-between">
+              <h4 class="font-extrabold text-sm text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-clock-rotate-left text-slate-400"></i> Riwayat Pengambilan & Mutasi Gudang
+              </h4>
+              <span class="text-[11px] text-slate-400 font-semibold">Tersimpan lokal & otomatis</span>
+            </div>
+
+            <div class="overflow-x-auto rounded-2xl border border-slate-200">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50 text-slate-500 font-bold border-b border-slate-200">
+                  <tr>
+                    <th class="py-2.5 px-3">Waktu</th>
+                    <th class="py-2.5 px-3">Aktivitas / Keperluan</th>
+                    <th class="py-2.5 px-3 text-center">Jumlah Karung</th>
+                    <th class="py-2.5 px-3">Tujuan / Keterangan</th>
+                    <th class="py-2.5 px-3 text-right">Sisa Gudang</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyRiwayatGudang" class="divide-y divide-slate-100 font-medium text-slate-700">
+                  <tr>
+                    <td class="py-2.5 px-3 text-slate-400 font-mono text-[11px]">Hari ini, 09:15</td>
+                    <td class="py-2.5 px-3 font-bold text-slate-900">
+                      <span class="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+                        <i class="fa-solid fa-arrow-down"></i> Stok Masuk (Kulakan)
+                      </span>
+                    </td>
+                    <td class="py-2.5 px-3 text-center font-bold text-emerald-600">+100 Karung</td>
+                    <td class="py-2.5 px-3 text-slate-500">Supplier Garam Madura (Truk Engkel)</td>
+                    <td class="py-2.5 px-3 text-right font-black text-slate-900">125 Karung</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2.5 px-3 text-slate-400 font-mono text-[11px]">Kemarin, 14:30</td>
+                    <td class="py-2.5 px-3 font-bold text-slate-900">
+                      <span class="inline-flex items-center gap-1 text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">
+                        <i class="fa-solid fa-arrow-right"></i> Pindah ke Toko Depan
+                      </span>
+                    </td>
+                    <td class="py-2.5 px-3 text-center font-bold text-rose-600">-10 Karung</td>
+                    <td class="py-2.5 px-3 text-slate-500">Stok display toko depan</td>
+                    <td class="py-2.5 px-3 text-right font-black text-slate-900">25 Karung</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+      </main>
+
+      <!-- BOTTOM NAV MOBILE -->
+      <nav class="md:hidden bg-white/95 backdrop-blur-md border-t border-slate-200 fixed bottom-0 inset-x-0 flex justify-around py-2.5 z-40">
+        <a href="index.html" class="flex flex-col items-center text-slate-400">
+          <i class="fa-solid fa-house text-lg"></i>
+          <span class="text-[10px] mt-1">Beranda</span>
+        </a>
+        <a href="kasir.html" class="flex flex-col items-center text-slate-400">
+          <i class="fa-solid fa-cart-shopping text-lg"></i>
+          <span class="text-[10px] mt-1">Kasir</span>
+        </a>
+        <a href="buku-bon.html" class="flex flex-col items-center text-slate-400 hover:text-amber-600">
+          <i class="fa-solid fa-clipboard-list text-lg"></i>
+          <span class="text-[10px] mt-1">Buku Bon</span>
+        </a>
+        <a href="stok.html" class="flex flex-col items-center text-blue-600 font-bold">
+          <i class="fa-solid fa-box text-lg"></i>
+          <span class="text-[10px] mt-1">Stok</span>
+        </a>
+        <a href="laporan.html" class="flex flex-col items-center text-slate-400">
+          <i class="fa-solid fa-chart-pie text-lg"></i>
+          <span class="text-[10px] mt-1">Laporan</span>
+        </a>
+      </nav>
+
+    </div>
+
+  </div>
+
+  <!-- Modal Pop-up: Tambah Produk Baru -->
+  <div id="modalTambah" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h3 class="font-extrabold text-base text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-box-open text-blue-600"></i> Tambah Barang Baru
+        </h3>
+        <button onclick="tutupModalTambah()" class="text-slate-400 hover:text-slate-600 text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="font-bold text-slate-600 block mb-1">Nama Barang:</label>
+          <input type="text" id="newProdName" placeholder="Contoh: Aqua 1500ml Dus, Teh Pucuk..." class="w-full p-2.5 font-bold border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="font-semibold text-slate-500 block mb-1">Kategori:</label>
+            <select id="newProdCat" class="w-full p-2 border border-slate-300 rounded-xl font-bold">
+              <option value="minuman">Minuman</option>
+              <option value="garam">Garam</option>
+              <option value="sembako">Sembako</option>
+            </select>
+          </div>
+          <div>
+            <label class="font-semibold text-slate-500 block mb-1">Satuan Jual:</label>
+            <select id="newProdUnit" class="w-full p-2 border border-slate-300 rounded-xl font-bold">
+              <option value="Dus">Dus / Karton</option>
+              <option value="Botol">Botol / Pcs</option>
+              <option value="Pak">Pak / Bal</option>
+              <option value="Karung">Karung</option>
+              <option value="Bungkus">Bungkus</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="font-semibold text-slate-500 block mb-1">Harga Beli Modal (Rp):</label>
+            <input type="number" id="newProdCost" placeholder="52000" class="w-full p-2 border border-slate-300 rounded-xl font-bold text-right" />
+          </div>
+          <div>
+            <label class="font-semibold text-slate-500 block mb-1">Harga Jual Toko (Rp):</label>
+            <input type="number" id="newProdSell" placeholder="60000" class="w-full p-2 border border-emerald-300 bg-emerald-50 rounded-xl font-bold text-right" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="font-semibold text-slate-500 block mb-1">Stok Awal Toko:</label>
+            <input type="number" id="newProdStockToko" value="10" min="0" class="w-full p-2 border border-slate-300 rounded-xl font-bold text-center" />
+          </div>
+          <div>
+            <label class="font-semibold text-slate-500 block mb-1">Stok Awal Gudang:</label>
+            <input type="number" id="newProdStockGudang" value="0" min="0" class="w-full p-2 border border-slate-300 rounded-xl font-bold text-center" />
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-3 flex gap-2">
+        <button onclick="tutupModalTambah()" class="flex-1 py-2.5 bg-slate-100 font-bold rounded-xl text-xs">Batal</button>
+        <button onclick="simpanProdukBaru()" class="flex-1 py-2.5 bg-blue-600 text-white font-extrabold rounded-xl text-xs shadow-md">Simpan Barang</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Ambil / Pindahkan Stok Garam dari Gudang -->
+  <div id="modalAmbilGudang" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl space-y-4 animate-in fade-in zoom-in duration-150">
+      <div class="flex items-center justify-between border-b pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-lg font-bold">
+            <i class="fa-solid fa-dolly"></i>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-base text-slate-900">Ambil Garam dari Gudang</h3>
+            <p class="text-xs text-slate-500">Mutasi & Pengurangan Stok Karung 50kg</p>
+          </div>
+        </div>
+        <button onclick="tutupModalAmbilGudang()" class="text-slate-400 hover:text-slate-600 text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Info Stok Saat Ini -->
+      <div class="bg-blue-50/70 border border-blue-200 rounded-2xl p-3.5 flex items-center justify-between text-xs">
+        <div>
+          <span class="text-slate-500 block">Stok Gudang Saat Ini:</span>
+          <div class="font-extrabold text-blue-900 text-sm">Garam Krosok (Karung 50kg)</div>
+          <span class="text-[11px] text-slate-500">Kapasitas simpan gudang belakang</span>
+        </div>
+        <div class="text-right">
+          <span class="text-3xl font-black text-blue-700" id="modalStokAwalVal">125</span>
+          <span class="font-bold text-slate-500 text-xs block">Karung Siap Pakai</span>
+        </div>
+      </div>
+
+      <!-- Form Pengambilan -->
+      <div class="space-y-3.5 text-xs">
+        <!-- Input Jumlah -->
+        <div>
+          <label class="font-extrabold text-slate-700 block mb-1">Berapa Karung yang Diambil?</label>
+          <div class="relative">
+            <input type="number" id="inputAmbilKarung" min="1" max="500" value="125" oninput="hitungSisaGudang()" class="w-full text-center text-2xl font-black p-3 border-2 border-indigo-200 rounded-2xl focus:border-indigo-600 focus:outline-none" />
+            <span class="absolute right-4 top-4 font-bold text-slate-400">Karung</span>
+          </div>
+          <!-- Preset Tombol Cepat -->
+          <div class="flex gap-2 mt-2">
+            <button type="button" onclick="setPresetAmbil(10)" class="flex-1 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition">+10</button>
+            <button type="button" onclick="setPresetAmbil(25)" class="flex-1 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition">+25</button>
+            <button type="button" onclick="setPresetAmbil(50)" class="flex-1 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition">+50</button>
+            <button type="button" onclick="setPresetAmbil('semua')" class="flex-1 py-1.5 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 font-black rounded-lg transition">Semua (125)</button>
+          </div>
+        </div>
+
+        <!-- Pilihan Keperluan / Tujuan -->
+        <div>
+          <label class="font-extrabold text-slate-700 block mb-1">Tujuan / Keperluan Pengambilan:</label>
+          <select id="selectTujuanAmbil" class="w-full p-3 font-bold border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 text-xs bg-white">
+            <option value="toko_depan">🏢 Pindahkan ke Toko Depan (Stok toko otomatis bertambah)</option>
+            <option value="jual_langsung">🚚 Penjualan Langsung Partai / Truk (Pelanggan angkut di gudang)</option>
+            <option value="buka_karung">✂️ Bawa ke Proses Buka Karung (Ecer 1kg)</option>
+            <option value="rusak_susut">⚠️ Pengurangan Stok Rusak / Basah (Koreksi Opname)</option>
+          </select>
+        </div>
+
+        <!-- Keterangan Tambahan -->
+        <div>
+          <label class="font-bold text-slate-600 block mb-1">Keterangan / Catatan (Opsional):</label>
+          <input type="text" id="inputCatatanAmbil" placeholder="Contoh: Diangkut pikap Pak Budi / Pindah rak depan..." class="w-full p-2.5 border border-slate-300 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500" />
+        </div>
+
+        <!-- Kalkulasi Sisa Real-Time -->
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-2xl space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="text-slate-500">Total Bobot Keluar:</span>
+            <span id="calcBobotKeluar" class="font-bold text-slate-800">6.250 Kg (125 Karung x 50kg)</span>
+          </div>
+          <div class="flex items-center justify-between pt-1 border-t border-slate-200 text-sm font-black">
+            <span class="text-slate-700">Estimasi Sisa di Gudang:</span>
+            <span id="calcSisaGudang" class="text-indigo-700">0 Karung (~0 Kg)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tombol Aksi -->
+      <div class="pt-2 flex gap-2">
+        <button onclick="tutupModalAmbilGudang()" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition">
+          Batal
+        </button>
+        <button onclick="prosesAmbilGudang()" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-xl text-xs shadow-md shadow-indigo-600/30 flex items-center justify-center gap-1.5 transition">
+          <i class="fa-solid fa-check"></i>
+          <span>Konfirmasi & Potong Stok</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Koreksi Cepat Stok Fisik Gudang (Stock Opname) -->
+  <div id="modalKoreksiGudang" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl space-y-4 animate-in fade-in zoom-in duration-150">
+      <div class="flex items-center justify-between border-b pb-3">
+        <div class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-sm text-slate-900">Koreksi Stok Fisik Gudang</h3>
+            <p class="text-[11px] text-slate-400">Penyesuaian hasil Stock Opname</p>
+          </div>
+        </div>
+        <button onclick="tutupModalKoreksiGudang()" class="text-slate-400 hover:text-slate-600 text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Jumlah Karung Fisik Nyata di Gudang:</label>
+          <input type="number" id="inputKoreksiKarung" value="125" class="w-full text-center text-3xl font-black p-3 border-2 border-slate-300 rounded-2xl focus:border-blue-600 focus:outline-none" />
+        </div>
+        <div>
+          <label class="font-bold text-slate-700 block mb-1">Alasan Penyesuaian:</label>
+          <select id="selectAlasanKoreksi" class="w-full p-2.5 font-bold border border-slate-300 rounded-xl bg-white">
+            <option value="Hitung ulang fisik berkala (Opname)">Hitung ulang fisik berkala (Opname)</option>
+            <option value="Koreksi kesalahan input sebelumnya">Koreksi kesalahan input sebelumnya</option>
+            <option value="Garam rusak / basah kehujanan">Garam rusak / basah kehujanan</option>
+            <option value="Selisih susut timbangan">Selisih susut timbangan</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="pt-2 flex gap-2">
+        <button onclick="tutupModalKoreksiGudang()" class="flex-1 py-2.5 bg-slate-100 font-bold rounded-xl text-xs">Batal</button>
+        <button onclick="prosesKoreksiGudang()" class="flex-1 py-2.5 bg-blue-600 text-white font-extrabold rounded-xl text-xs shadow-md">Simpan Koreksi</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let productsList = [];
+    let karungGaramProd = null;
+
+    async function loadStokUI() {
+      if (!window.DB) return;
+      try {
+        productsList = await DB.getProducts();
+      } catch (e) {
+        console.warn("Gagal load stok:", e);
+      }
+
+      karungGaramProd = productsList.find(p => p.name.includes('50kg')) || productsList[0];
+      const stokGudang = karungGaramProd ? Number(karungGaramProd.stock_gudang || 0) : 125;
+      const stokTokoGaram = karungGaramProd ? Number(karungGaramProd.stock_toko || 0) : 8;
+
+      // 1. Nilai Gudang
+      const stokGudangEl = document.getElementById('stokGudangVal');
+      const bobotGudangEl = document.getElementById('bobotGudangVal');
+      const modalStokAwal = document.getElementById('modalStokAwalVal');
+      
+      if (stokGudangEl) stokGudangEl.innerText = stokGudang;
+      if (bobotGudangEl) bobotGudangEl.innerText = `~${(stokGudang * 50).toLocaleString('id-ID')} Kg`;
+      if (modalStokAwal) modalStokAwal.innerText = stokGudang;
+
+      // 2. Tab Text
+      const tabDesk = document.getElementById('tabGudangDesktop');
+      if (tabDesk) tabDesk.innerHTML = `<i class="fa-solid fa-warehouse text-blue-600"></i> Gudang Garam Belakang (${stokGudang} Karung)`;
+
+      // 3. Status Gudang
+      const statusEl = document.getElementById('labelStatusGudang');
+      if (statusEl) {
+        if (stokGudang <= 0) {
+          statusEl.className = 'inline-block px-2.5 py-0.5 bg-rose-100 text-rose-800 text-[11px] font-extrabold rounded-md';
+          statusEl.innerText = 'Habis / Kosong';
+        } else if (stokGudang < 20) {
+          statusEl.className = 'inline-block px-2.5 py-0.5 bg-amber-100 text-amber-800 text-[11px] font-extrabold rounded-md';
+          statusEl.innerText = '⚠️ Menipis';
+        } else {
+          statusEl.className = 'inline-block px-2.5 py-0.5 bg-emerald-100 text-emerald-800 text-[11px] font-extrabold rounded-md';
+          statusEl.innerText = '✓ Siap Dipakai / Dijual';
+        }
+      }
+
+      // 4. Render Grid Produk Toko Depan Secara Dinamis
+      const listToko = document.getElementById('listToko');
+      if (listToko) {
+        if (!productsList || productsList.length === 0) {
+          listToko.innerHTML = '<div class="col-span-full py-10 text-center text-slate-400 text-xs">Belum ada data produk di toko.</div>';
+        } else {
+          listToko.innerHTML = productsList.map(p => {
+            const stok = Number(p.stock_toko || 0);
+            const isHabis = stok <= 0;
+            const isMenipis = stok <= Number(p.min_stock_alert || 5);
+            let badgeClass = 'bg-emerald-100 text-emerald-800';
+            let statusText = '✓ Stok Aman';
+            let statusClass = 'text-emerald-600 font-bold';
+
+            if (isHabis) {
+              badgeClass = 'bg-rose-100 text-rose-800';
+              statusText = '❌ Habis';
+              statusClass = 'text-rose-600 font-bold';
+            } else if (isMenipis) {
+              badgeClass = 'bg-amber-100 text-amber-800';
+              statusText = '⚠️ Sisa Sedikit';
+              statusClass = 'text-amber-600 font-bold';
+            }
+
+            let aksiHtml = '';
+            if (p.name.includes('50kg')) {
+              aksiHtml = `
+                <button onclick="switchTab('gudang'); bukaModalAmbilGudang();" class="text-indigo-600 font-bold hover:underline">+ Ambil Gudang</button>
+                <span class="text-slate-300">•</span>
+                <a href="stok-masuk.html" class="text-blue-600 font-bold hover:underline" title="Belanja stok baru dari agen/supplier">+ Tambah Stok (Beli)</a>
+              `;
+            } else if (p.name.includes('1kg') && p.category === 'garam') {
+              aksiHtml = `
+                <a href="buka-karung.html" class="text-purple-600 font-bold hover:underline">+ Buka Karung</a>
+              `;
+            } else {
+              aksiHtml = `
+                <a href="stok-masuk.html" class="text-blue-600 font-bold hover:underline" title="Belanja stok baru dari agen/supplier">+ Tambah Stok (Beli)</a>
+              `;
+            }
+
+            return `
+              <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <span class="text-[10px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded uppercase">${p.category} • ${p.unit}</span>
+                    <h4 class="font-extrabold text-sm text-slate-900 mt-1">${p.name}</h4>
+                    <p class="text-xs text-slate-400 mt-0.5">
+                      <span class="td-modal">Modal: Rp ${new Intl.NumberFormat('id-ID').format(p.cost_price)} • </span>
+                      Jual: <b class="text-emerald-600">Rp ${new Intl.NumberFormat('id-ID').format(p.sell_price)}</b>
+                    </p>
+                  </div>
+                  <span class="px-2.5 py-1 ${badgeClass} text-xs font-extrabold rounded-lg whitespace-nowrap ml-2">${stok} ${p.unit}</span>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                  <span class="${statusClass}">${statusText}</span>
+                  <div class="flex items-center gap-2">
+                    ${aksiHtml}
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      // Pastikan hak akses pemilik/penjaga diaplikasikan ke elemen baru
+      if (window.applyRoleUI && window.getCurrentRole) {
+        window.applyRoleUI(window.getCurrentRole());
+      }
+    }
+
+    function switchTab(tab) {
+      const listToko = document.getElementById('listToko');
+      const listGudang = document.getElementById('listGudang');
+      
+      const tabTokoM = document.getElementById('tabTokoMobile');
+      const tabGudangM = document.getElementById('tabGudangMobile');
+      const tabTokoD = document.getElementById('tabTokoDesktop');
+      const tabGudangD = document.getElementById('tabGudangDesktop');
+
+      if (tab === 'toko') {
+        if (listToko) listToko.classList.remove('hidden');
+        if (listGudang) listGudang.classList.add('hidden');
+        if (tabTokoM) tabTokoM.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-white text-blue-800 shadow-sm transition";
+        if (tabGudangM) tabGudangM.className = "flex-1 py-2 text-xs font-bold rounded-xl text-blue-100 transition";
+        if (tabTokoD) tabTokoD.className = "px-5 py-2.5 rounded-xl text-xs font-extrabold bg-blue-600 text-white shadow-sm flex items-center gap-2";
+        if (tabGudangD) tabGudangD.className = "px-5 py-2.5 rounded-xl text-xs font-extrabold bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center gap-2";
+      } else {
+        if (listToko) listToko.classList.add('hidden');
+        if (listGudang) listGudang.classList.remove('hidden');
+        if (tabTokoM) tabTokoM.className = "flex-1 py-2 text-xs font-bold rounded-xl text-blue-100 transition";
+        if (tabGudangM) tabGudangM.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-white text-blue-800 shadow-sm transition";
+        if (tabTokoD) tabTokoD.className = "px-5 py-2.5 rounded-xl text-xs font-extrabold bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center gap-2";
+        if (tabGudangD) tabGudangD.className = "px-5 py-2.5 rounded-xl text-xs font-extrabold bg-blue-600 text-white shadow-sm flex items-center gap-2";
+      }
+    }
+
+    // Modal Ambil / Pindahkan Stok
+    function bukaModalAmbilGudang() {
+      const curGudang = karungGaramProd ? Number(karungGaramProd.stock_gudang || 0) : 125;
+      document.getElementById('inputAmbilKarung').value = curGudang > 0 ? Math.min(10, curGudang) : 0;
+      document.getElementById('inputCatatanAmbil').value = '';
+      hitungSisaGudang();
+      document.getElementById('modalAmbilGudang').classList.remove('hidden');
+      setTimeout(() => document.getElementById('inputAmbilKarung').focus(), 150);
+    }
+
+    function tutupModalAmbilGudang() {
+      document.getElementById('modalAmbilGudang').classList.add('hidden');
+    }
+
+    function setPresetAmbil(val) {
+      const curGudang = karungGaramProd ? Number(karungGaramProd.stock_gudang || 0) : 125;
+      if (val === 'semua') {
+        document.getElementById('inputAmbilKarung').value = curGudang;
+      } else {
+        document.getElementById('inputAmbilKarung').value = Math.min(val, curGudang);
+      }
+      hitungSisaGudang();
+    }
+
+    function hitungSisaGudang() {
+      const curGudang = karungGaramProd ? Number(karungGaramProd.stock_gudang || 0) : 125;
+      const input = parseInt(document.getElementById('inputAmbilKarung').value || '0', 10);
+      const sisa = Math.max(0, curGudang - input);
+      const bobotKeluar = (input * 50).toLocaleString('id-ID');
+      const bobotSisa = (sisa * 50).toLocaleString('id-ID');
+
+      document.getElementById('calcBobotKeluar').innerText = `${bobotKeluar} Kg (${input} Karung x 50kg)`;
+      document.getElementById('calcSisaGudang').innerText = `${sisa} Karung (~${bobotSisa} Kg)`;
+    }
+
+    async function prosesAmbilGudang() {
+      const curGudang = karungGaramProd ? Number(karungGaramProd.stock_gudang || 0) : 125;
+      const jml = parseInt(document.getElementById('inputAmbilKarung').value || '0', 10);
+      if (jml <= 0) {
+        showAppModal("Masukkan jumlah karung yang valid (minimal 1 karung)!", { tipe: 'warning' });
+        return;
+      }
+      if (jml > curGudang) {
+        showAppConfirm(`Jumlah yang diambil (${jml} karung) melebihi stok gudang saat ini (${curGudang} karung).\n\nTetap lanjutkan pemindahan?`, {
+          judul: "Peringatan Stok Kurang",
+          tipe: "warning",
+          tombolOk: "Tetap Ambil",
+          onOk: async () => {
+            await eksekusiAmbilGudang(jml);
+          }
+        });
+        return;
+      }
+
+      await eksekusiAmbilGudang(jml);
+    }
+
+    async function eksekusiAmbilGudang(jml) {
+      const tujuan = document.getElementById('selectTujuanAmbil').value;
+      const catatan = document.getElementById('inputCatatanAmbil').value.trim();
+
+      if (window.DB && karungGaramProd) {
+        if (tujuan === 'toko_depan') {
+          await DB.transferStock(karungGaramProd.id, 'gudang', 'toko', jml, catatan || 'Pindah ke display toko depan');
+        } else {
+          const sisaGudang = Math.max(0, Number(karungGaramProd.stock_gudang) - jml);
+          await DB.updateStock(karungGaramProd.id, 'gudang', sisaGudang);
+        }
+      }
+
+      tutupModalAmbilGudang();
+      await loadStokUI();
+
+      showAppModal(`Sebanyak ${jml} Karung Garam (${(jml * 50).toLocaleString('id-ID')} Kg) berhasil dipotong dari Gudang.\nData stok toko dan gudang telah tersinkronisasi!`, {
+        judul: "Mutasi Garam Berhasil",
+        tipe: "sukses"
+      });
+    }
+
+    // Modal Koreksi Cepat
+    function bukaModalKoreksiGudang() {
+      const curGudang = karungGaramProd ? Number(karungGaramProd.stock_gudang || 0) : 125;
+      document.getElementById('inputKoreksiKarung').value = curGudang;
+      document.getElementById('modalKoreksiGudang').classList.remove('hidden');
+    }
+
+    function tutupModalKoreksiGudang() {
+      document.getElementById('modalKoreksiGudang').classList.add('hidden');
+    }
+
+    async function prosesKoreksiGudang() {
+      const baru = parseInt(document.getElementById('inputKoreksiKarung').value || '0', 10);
+      const alasan = document.getElementById('selectAlasanKoreksi').value;
+      
+      if (window.DB && karungGaramProd) {
+        await DB.updateStock(karungGaramProd.id, 'gudang', baru);
+      }
+      
+      tutupModalKoreksiGudang();
+      await loadStokUI();
+
+      showAppModal(`Stok gudang berhasil disesuaikan menjadi ${baru} Karung fisik!\nAlasan Opname: "${alasan}"`, {
+        judul: "Koreksi Stok Berhasil",
+        tipe: "sukses"
+      });
+    }
+
+    function bukaModalTambah() {
+      document.getElementById('modalTambah').classList.remove('hidden');
+    }
+
+    function tutupModalTambah() {
+      document.getElementById('modalTambah').classList.add('hidden');
+    }
+
+    async function simpanProdukBaru() {
+      const name = document.getElementById('newProdName').value.trim();
+      const cat = document.getElementById('newProdCat').value;
+      const unit = document.getElementById('newProdUnit').value;
+      const cost = parseInt(document.getElementById('newProdCost').value) || 0;
+      const sell = parseInt(document.getElementById('newProdSell').value) || 0;
+      const stkToko = parseInt(document.getElementById('newProdStockToko').value) || 0;
+      const stkGudang = parseInt(document.getElementById('newProdStockGudang').value) || 0;
+
+      if (!name || sell <= 0) {
+        showAppModal("Harap masukkan nama produk dan harga jual yang valid.", {
+          judul: "Form Belum Lengkap",
+          tipe: "warning"
+        });
+        return;
+      }
+
+      if (window.DB) {
+        await DB.addProduct({
+          name: name,
+          category: cat,
+          unit: unit,
+          cost_price: cost,
+          sell_price: sell,
+          stock_toko: stkToko,
+          stock_gudang: stkGudang,
+          min_stock_alert: 5
+        });
+      }
+
+      tutupModalTambah();
+      // Bersihkan input
+      document.getElementById('newProdName').value = '';
+      document.getElementById('newProdCost').value = '';
+      document.getElementById('newProdSell').value = '';
+
+      await loadStokUI();
+
+      showAppModal(`Produk baru "${name}" berhasil ditambahkan dan langsung aktif di katalog kasir serta inventaris toko!`, {
+        judul: "Produk Baru Tersimpan",
+        tipe: "sukses"
+      });
+    }
+
+    // Inisialisasi saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', () => {
+      loadStokUI();
+    });
+
+    // Real-time listener: jika ada update dari perangkat lain
+    window.addEventListener('toko:data-updated', () => {
+      loadStokUI();
+    });
+  </script>
+  <!-- Supabase Cloud SDK & Database Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="db.js"></script>
+  <!-- Script Sinkronisasi Peran & Proteksi PIN Global -->
+  <script src="auth.js"></script>
+  <script src="pwa.js"></script>
+</body>
+</html>

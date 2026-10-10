@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toko Berkah Garam - Dashboard</title>
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+  </style>
+</head>
+<body class="bg-slate-100 font-sans text-slate-800 antialiased min-h-screen">
+
+  <div class="min-h-screen flex flex-col md:flex-row">
+
+    <!-- =============================================================== -->
+    <!-- 1. SIDEBAR KHUSUS LAPTOP & TABLET (Tersembunyi di HP Mobile)   -->
+    <!-- =============================================================== -->
+    <aside class="hidden md:flex flex-col w-64 lg:w-72 bg-slate-900 text-slate-300 p-5 shrink-0 border-r border-slate-800 sticky top-0 h-screen overflow-y-auto">
+      
+      <!-- Brand Logo Toko -->
+      <div class="flex items-center gap-3 pb-6 border-b border-slate-800">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-white flex items-center justify-center text-xl font-bold shadow-lg shadow-emerald-500/20">
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-extrabold text-white tracking-tight">Toko Berkah</h1>
+          <p id="roleBadgeSidebar" class="text-xs text-emerald-400 font-semibold flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Mode Pemilik (Aktif)
+          </p>
+        </div>
+      </div>
+
+      <!-- Menu Navigasi Utama Desktop -->
+      <nav class="flex-1 py-6 space-y-1.5">
+        <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-3 block mb-2">Menu Utama</span>
+        
+        <a href="index.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm shadow-md shadow-emerald-600/30">
+          <i class="fa-solid fa-chart-pie w-5 text-center text-base"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="kasir.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-cash-register w-5 text-center text-emerald-400 text-base"></i>
+          <span>Kasir Penjualan</span>
+        </a>
+
+        <!-- MENU BUKU BON & HUTANG -->
+        <a href="buku-bon.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-clipboard-list w-5 text-center text-amber-400 text-base"></i>
+          <span>Buku Bon & Hutang</span>
+        </a>
+
+        <a href="stok.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-boxes-stacked w-5 text-center text-blue-400 text-base"></i>
+          <span>Stok Barang</span>
+        </a>
+
+        <a href="stok-masuk.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+          <i class="fa-solid fa-truck-loading w-5 text-center text-indigo-400 text-base"></i>
+          <span>Stok Masuk</span>
+        </a>
+
+        <!-- MENU KHUSUS PEMILIK (BISA DISEMBUNYIKAN DI MODE PENJAGA) -->
+        <div id="ownerMenuSection" class="space-y-1.5 pt-2">
+          <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 px-3 block pt-2 mb-2">Akses Pemilik Toko</span>
+
+          <a href="buka-karung.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-box-open w-5 text-center text-purple-400 text-base"></i>
+            <span>Buka Karung</span>
+          </a>
+
+          <a href="ambil-uang.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-hand-holding-dollar w-5 text-center text-orange-400 text-base"></i>
+            <span>Ambil Uang (Prive)</span>
+          </a>
+
+          <a href="tutup-kasir.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-lock w-5 text-center text-rose-400 text-base"></i>
+            <span>Tutup Kasir Shift</span>
+          </a>
+
+          <a href="laporan.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 font-semibold text-sm transition">
+            <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-teal-400 text-base"></i>
+            <span>Laporan & Backup</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Profil & Tombol Ganti Peran Bawah -->
+      <div class="pt-4 border-t border-slate-800 space-y-3">
+        <button onclick="toggleUserRole()" id="btnSwitchRoleSidebar" class="w-full py-2.5 px-3 bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs rounded-xl border border-slate-700 flex items-center justify-between transition">
+          <span class="flex items-center gap-2">
+            <i class="fa-solid fa-user-shield text-amber-400"></i>
+            <span id="labelSwitchRoleSidebar">Ganti ke Mode Penjaga</span>
+          </span>
+          <i class="fa-solid fa-chevron-right text-[10px]"></i>
+        </button>
+
+        <div class="flex items-center justify-between text-xs px-1 text-slate-400">
+          <span id="roleDescSidebar">Akses: Semua Fitur Terbuka</span>
+          <span class="text-emerald-400 font-bold">Online</span>
+        </div>
+      </div>
+    </aside>
+
+
+    <!-- =============================================================== -->
+    <!-- 2. KONTEN UTAMA: ADAPTIF                                        -->
+    <!-- =============================================================== -->
+    <div class="flex-1 flex flex-col min-h-screen min-w-0">
+
+      <!-- ============================================================= -->
+      <!-- TOPBAR DESKTOP & TABLET                                       -->
+      <!-- ============================================================= -->
+      <header class="hidden md:flex flex-wrap items-center justify-between gap-3 bg-white border-b border-slate-200 px-6 lg:px-8 py-4 sticky top-0 z-20 shadow-sm">
+        <div>
+          <div class="flex items-center gap-2.5 flex-wrap">
+            <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Dashboard Ringkasan Usaha</h2>
+            <span id="roleBadgeTop" class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300">
+              👑 Mode Pemilik
+            </span>
+          </div>
+          <p id="desktopDate" class="text-xs text-slate-500 font-medium mt-0.5">Kamis, 8 Oktober 2026 • Toko Buka Normal</p>
+        </div>
+
+        <!-- Tombol Aksi Cepat di Header Desktop -->
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <button onclick="bukaPengaturanDatabase()" class="db-status-badge px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold text-xs rounded-xl flex items-center gap-1.5 transition" title="Pengaturan Database">
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+            <span>Lokal</span>
+          </button>
+
+          <button onclick="toggleUserRole()" id="btnSwitchRoleTop" class="px-3.5 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 font-bold text-xs rounded-xl flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-user-gear text-amber-600"></i>
+            <span id="labelSwitchRoleTop">Alihkan ke Saudara (Mode Penjaga)</span>
+          </button>
+
+          <a href="kasir.html" class="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-md transition">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Buka Kasir</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- ============================================================= -->
+      <!-- HEADER KHUSUS MOBILE                                          -->
+      <!-- ============================================================= -->
+      <header class="md:hidden bg-gradient-to-r from-emerald-600 to-teal-700 text-white p-5 pt-6 shadow-md rounded-b-3xl">
+        <div class="flex items-center justify-between">
+          <div>
+            <button onclick="toggleUserRole()" id="roleBadgeMobile" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-white/20 text-white border border-white/30 backdrop-blur-sm active:scale-95 transition">
+              <span class="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
+              <span id="roleTextMobile">👑 Mode Pemilik (Ganti)</span>
+            </button>
+            <h1 class="text-2xl font-extrabold tracking-tight mt-1.5">Toko Berkah Garam</h1>
+            <p id="mobileDate" class="text-xs text-emerald-100 font-medium mt-0.5">Kamis, 8 Oktober 2026</p>
+          </div>
+          <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white text-xl shadow-inner">
+            <i class="fa-solid fa-store"></i>
+          </div>
+        </div>
+
+        <!-- Banner Info Mode Penjaga (Muncul Hanya Saat Mode Penjaga Aktif di Mobile) -->
+        <div id="keeperNoticeMobile" class="hidden mt-3 p-2.5 bg-amber-400 text-slate-900 rounded-xl text-xs font-bold flex items-center justify-between">
+          <span>🟡 Saudara Jaga Toko • Data Laba & Modal Terkunci</span>
+          <button onclick="mintaPinPemilik()" class="text-[11px] bg-slate-900 text-white px-2 py-1 rounded-lg">Buka PIN</button>
+        </div>
+
+        <!-- Kartu Ringkasan Mobile -->
+        <div class="grid grid-cols-2 gap-3 mt-4">
+          <div class="bg-white/95 backdrop-blur-sm rounded-2xl p-3.5 text-slate-800 shadow-sm">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-slate-500">
+              <i class="fa-solid fa-sack-dollar text-emerald-600"></i> Omzet Hari Ini
+            </div>
+            <div id="omzetMobileVal" class="text-xl font-extrabold text-emerald-700 mt-1">Rp 1.450.000</div>
+            <div id="trxMobileSub" class="text-[10px] text-slate-400 mt-0.5">14 transaksi lunas</div>
+          </div>
+
+          <div class="bg-white/95 backdrop-blur-sm rounded-2xl p-3.5 text-slate-800 shadow-sm">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-slate-500">
+              <i class="fa-solid fa-chart-line text-blue-600"></i> Untung Bersih
+            </div>
+            <div id="untungMobileVal" class="text-xl font-extrabold text-blue-700 mt-1">Rp 285.000</div>
+            <div id="untungMobileSub" class="text-[10px] text-emerald-600 font-semibold mt-0.5">Margin ~19.6%</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ============================================================= -->
+      <!-- BODY AREA RESPONSIF                                           -->
+      <!-- ============================================================= -->
+      <main class="flex-1 p-4 md:p-8 space-y-6 max-w-7xl w-full mx-auto pb-24 md:pb-8">
+
+        <!-- KARTU METRIK UTAMA DESKTOP -->
+        <div class="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Omzet -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Total Omzet Hari Ini</span>
+              <div id="omzetDesktopVal" class="text-2xl font-black text-slate-900 mt-1">Rp 1.450.000</div>
+              <span id="trxDesktopSub" class="text-xs text-emerald-600 font-semibold mt-1 inline-flex items-center gap-1">
+                <i class="fa-solid fa-arrow-trend-up"></i> 14 transaksi lunas
+              </span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl font-bold">
+              <i class="fa-solid fa-sack-dollar"></i>
+            </div>
+          </div>
+
+          <!-- Laba Bersih (Disembunyikan jika Penjaga) -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Laba Bersih Toko</span>
+              <div id="untungDesktopVal" class="text-2xl font-black text-emerald-700 mt-1">Rp 285.000</div>
+              <span id="untungDesktopSub" class="text-xs text-slate-500 font-medium mt-1 block">Margin rata-rata 19.6%</span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl font-bold">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+          </div>
+
+          <!-- Beban Usaha -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Beban Toko Hari Ini</span>
+              <div id="bebanDesktopVal" class="text-2xl font-black text-rose-600 mt-1">Rp 50.000</div>
+              <span id="bebanDesktopSub" class="text-xs text-slate-400 mt-1 block">Bensin angkut & plastik</span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center text-2xl font-bold">
+              <i class="fa-solid fa-receipt"></i>
+            </div>
+          </div>
+
+          <!-- Total Kas Laci Kasir -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Uang di Laci Kasir</span>
+              <div id="laciDesktopVal" class="text-2xl font-black text-amber-700 mt-1">Rp 1.450.000</div>
+              <span class="text-xs text-slate-400 font-medium mt-1 block">Wajib serah terima shift</span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl font-bold">
+              <i class="fa-solid fa-cash-register"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- ALERT STOK MENIPIS -->
+        <div id="alertStokBanner" class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center justify-between text-xs text-amber-900 shadow-sm">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-200 text-amber-800 flex items-center justify-center shrink-0 font-bold text-lg">
+              <i id="alertStokIcon" class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div>
+              <span id="alertStokTitle" class="font-extrabold text-sm text-amber-950 block">Peringatan: Garam Krosok 50kg sisa 8 karung</span>
+              <p id="alertStokDesc" class="text-xs text-amber-800 mt-0.5">Penjualan cepat. Segera kabari pemilik atau supplier.</p>
+            </div>
+          </div>
+          <a href="stok.html" class="px-3.5 py-2 bg-amber-600 text-white font-extrabold rounded-xl text-xs shrink-0">Cek Stok</a>
+        </div>
+
+        <!-- MENU UTAMA MOBILE -->
+        <div class="md:hidden space-y-3">
+          <h2 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 px-1">
+            Menu Operasional Cepat
+          </h2>
+
+          <div class="grid grid-cols-2 gap-3" id="mobileActionGrid">
+            <!-- 1. Jual / Kasir -->
+            <a href="kasir.html" class="flex flex-col items-center justify-center bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-3xl p-4 shadow-md active:scale-95 transition">
+              <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-2xl mb-1.5">
+                <i class="fa-solid fa-cash-register"></i>
+              </div>
+              <span class="text-sm font-extrabold tracking-wide">JUAL (KASIR)</span>
+              <span class="text-[10px] text-emerald-100 font-medium mt-0.5">Catat Nota Belanja</span>
+            </a>
+
+            <!-- 2. Buku Bon Pelanggan -->
+            <a href="buku-bon.html" class="flex flex-col items-center justify-center bg-gradient-to-br from-amber-500 to-amber-600 text-white rounded-3xl p-4 shadow-md active:scale-95 transition">
+              <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-2xl mb-1.5">
+                <i class="fa-solid fa-clipboard-list"></i>
+              </div>
+              <span class="text-sm font-extrabold tracking-wide">BUKU BON</span>
+              <span class="text-[10px] text-amber-100 font-medium mt-0.5">Pantau & Tagih Bon</span>
+            </a>
+
+            <!-- 3. Stok Barang -->
+            <a href="stok.html" class="flex flex-col items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-3xl p-4 shadow-md active:scale-95 transition">
+              <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-2xl mb-1.5">
+                <i class="fa-solid fa-boxes-stacked"></i>
+              </div>
+              <span class="text-sm font-extrabold tracking-wide">STOK BARANG</span>
+              <span class="text-[10px] text-blue-100 font-medium mt-0.5">Cek Sisa Toko</span>
+            </a>
+
+            <!-- 4. Ambil Uang (HANYA PEMILIK) -->
+            <a id="btnMobileAmbilUang" href="ambil-uang.html" class="flex flex-col items-center justify-center bg-gradient-to-br from-orange-500 to-amber-600 text-white rounded-3xl p-4 shadow-md active:scale-95 transition">
+              <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-2xl mb-1.5">
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+              </div>
+              <span class="text-sm font-extrabold tracking-wide">AMBIL UANG</span>
+              <span class="text-[10px] text-orange-100 font-medium mt-0.5">Prive & Operasional</span>
+            </a>
+
+            <!-- 5. Buka Karung (HANYA PEMILIK) -->
+            <a id="btnMobileBukaKarung" href="buka-karung.html" class="flex flex-col items-center justify-center bg-gradient-to-br from-purple-500 to-fuchsia-600 text-white rounded-3xl p-4 shadow-md active:scale-95 transition">
+              <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-2xl mb-1.5">
+                <i class="fa-solid fa-box-open"></i>
+              </div>
+              <span class="text-sm font-extrabold tracking-wide">BUKA KARUNG</span>
+              <span class="text-[10px] text-purple-100 font-medium mt-0.5">Ecer Garam 1kg</span>
+            </a>
+
+            <!-- 6. Stok Masuk -->
+            <a href="stok-masuk.html" class="flex flex-col items-center justify-center bg-gradient-to-br from-indigo-500 to-slate-700 text-white rounded-3xl p-4 shadow-md active:scale-95 transition">
+              <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-2xl mb-1.5">
+                <i class="fa-solid fa-truck-loading"></i>
+              </div>
+              <span class="text-sm font-extrabold tracking-wide">STOK MASUK</span>
+              <span class="text-[10px] text-indigo-100 font-medium mt-0.5">Kulakan Supplier</span>
+            </a>
+          </div>
+
+          <!-- Menu Tambahan Tutup Shift & Laporan -->
+          <div class="grid grid-cols-2 gap-3 pt-1">
+            <a href="tutup-kasir.html" class="flex items-center gap-3 p-3.5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-rose-300 transition">
+              <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg shrink-0">
+                <i class="fa-solid fa-lock"></i>
+              </div>
+              <div>
+                <div class="font-bold text-xs text-slate-800">Tutup Shift Kasir</div>
+                <div class="text-[10px] text-slate-400">Hitung uang laci</div>
+              </div>
+            </a>
+
+            <a id="btnMobileLaporan" href="laporan.html" class="flex items-center gap-3 p-3.5 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-teal-300 transition">
+              <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center text-lg shrink-0">
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+              </div>
+              <div>
+                <div class="font-bold text-xs text-slate-800">Laporan Kas</div>
+                <div class="text-[10px] text-slate-400">Untung & Backup</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- TAMPILAN TABEL INVENTARIS DESKTOP -->
+        <div class="hidden md:grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+            <div class="flex items-center justify-between border-b pb-4">
+              <div>
+                <h3 class="font-extrabold text-base text-slate-900">Inventaris Stok Siap Jual</h3>
+                <p class="text-xs text-slate-500">Daftar harga & stok barang toko</p>
+              </div>
+              <a href="stok.html" class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-xl">Lihat Semua →</a>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="text-slate-400 font-extrabold uppercase border-b border-slate-100 pb-2">
+                    <th class="py-2.5">Produk</th>
+                    <th id="thHargaBeli" class="py-2.5">Harga Beli</th>
+                    <th class="py-2.5">Harga Jual</th>
+                    <th class="py-2.5 text-center">Sisa Stok</th>
+                    <th class="py-2.5 text-right">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="inventoryTableBody" class="divide-y divide-slate-100 font-medium">
+                  <tr>
+                    <td class="py-3 font-bold text-slate-900">Garam Krosok 50kg</td>
+                    <td class="td-modal py-3 text-slate-600">Rp 95.000</td>
+                    <td class="py-3 font-bold text-emerald-600">Rp 110.000</td>
+                    <td class="py-3 text-center font-extrabold text-amber-700">8 Karung</td>
+                    <td class="py-3 text-right"><span class="px-2 py-0.5 bg-amber-100 text-amber-800 font-bold rounded-lg text-[11px]">Menipis</span></td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 font-bold text-slate-900">Garam Eceran 1kg</td>
+                    <td class="td-modal py-3 text-slate-600">Rp 2.083</td>
+                    <td class="py-3 font-bold text-emerald-600">Rp 3.000</td>
+                    <td class="py-3 text-center font-extrabold text-slate-800">45 Bks</td>
+                    <td class="py-3 text-right"><span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded-lg text-[11px]">Aman</span></td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 font-bold text-slate-900">Aqua Dus Gelas</td>
+                    <td class="td-modal py-3 text-slate-600">Rp 24.000</td>
+                    <td class="py-3 font-bold text-emerald-600">Rp 28.000</td>
+                    <td class="py-3 text-center font-extrabold text-slate-800">12 Dus</td>
+                    <td class="py-3 text-right"><span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded-lg text-[11px]">Aman</span></td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 font-bold text-slate-900">Teh Kotak 200ml</td>
+                    <td class="td-modal py-3 text-slate-600">Rp 62.000</td>
+                    <td class="py-3 font-bold text-emerald-600">Rp 75.000</td>
+                    <td class="py-3 text-center font-extrabold text-slate-800">5 Karton</td>
+                    <td class="py-3 text-right"><span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded-lg text-[11px]">Aman</span></td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 font-bold text-slate-900">Aqua Galon Isi Ulang</td>
+                    <td class="td-modal py-3 text-slate-600">Rp 16.000</td>
+                    <td class="py-3 font-bold text-emerald-600">Rp 20.000</td>
+                    <td class="py-3 text-center font-extrabold text-cyan-700">15 Isi • 8 Ksg</td>
+                    <td class="py-3 text-right"><span class="px-2 py-0.5 bg-cyan-100 text-cyan-800 font-bold rounded-lg text-[11px]">Tukar</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Panel Kasir Laci -->
+          <div class="space-y-6">
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+              <h3 class="font-extrabold text-base text-slate-900 border-b pb-3">Serah Terima Shift Kasir</h3>
+              <div class="p-3.5 bg-amber-50 border border-amber-200 rounded-2xl">
+                <span class="text-xs text-slate-500 block">Uang Fisik di Laci Sekarang:</span>
+                <span id="laciSideVal" class="text-2xl font-black text-slate-900 block mt-1">Rp 1.450.000</span>
+                <span class="text-[11px] text-amber-700 font-semibold mt-1 block">Wajib cocok saat pergantian penjaga</span>
+              </div>
+              <a href="tutup-kasir.html" class="block w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs text-center rounded-xl shadow-md transition">
+                Hitung Kasir & Tutup Shift
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- BOTTOM NAV MOBILE -->
+      <nav class="md:hidden bg-white/95 backdrop-blur-md border-t border-slate-200 fixed bottom-0 inset-x-0 flex justify-around py-2.5 z-40">
+        <a href="index.html" class="flex flex-col items-center text-emerald-600 font-bold">
+          <i class="fa-solid fa-house text-lg"></i>
+          <span class="text-[10px] mt-1">Beranda</span>
+        </a>
+        <a href="kasir.html" class="flex flex-col items-center text-slate-400">
+          <i class="fa-solid fa-cart-shopping text-lg"></i>
+          <span class="text-[10px] mt-1">Kasir</span>
+        </a>
+        <a href="buku-bon.html" class="flex flex-col items-center text-slate-400 hover:text-amber-600">
+          <i class="fa-solid fa-clipboard-list text-lg"></i>
+          <span class="text-[10px] mt-1">Buku Bon</span>
+        </a>
+        <a href="stok.html" class="flex flex-col items-center text-slate-400">
+          <i class="fa-solid fa-box text-lg"></i>
+          <span class="text-[10px] mt-1">Stok</span>
+        </a>
+        <a id="navMobileLaporan" href="laporan.html" class="flex flex-col items-center text-slate-400">
+          <i class="fa-solid fa-chart-pie text-lg"></i>
+          <span class="text-[10px] mt-1">Laporan</span>
+        </a>
+      </nav>
+
+    </div>
+
+  </div>
+
+  <!-- MODAL PIN PEMILIK (Untuk Buka Kembali Mode Pemilik) -->
+  <div id="pinModal" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 max-w-xs w-full shadow-2xl text-center space-y-4">
+      <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mx-auto">
+        <i class="fa-solid fa-key"></i>
+      </div>
+      <div>
+        <h3 class="font-extrabold text-base text-slate-900">Masukkan PIN Pemilik</h3>
+        <p class="text-xs text-slate-500 mt-1">Ketik PIN rahasia pemilik untuk membuka seluruh data laba & prive</p>
+      </div>
+
+      <div class="py-2">
+        <input type="password" id="pinInput" maxlength="6" placeholder="• • • •" class="w-full text-center tracking-widest text-2xl font-black py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none" />
+        <span class="text-[10px] text-slate-400 mt-1 block">PIN Demo: 1234</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="tutupModalPin()" class="py-2.5 bg-slate-100 text-slate-600 font-bold rounded-xl text-xs">Batal</button>
+        <button onclick="verifikasiPin()" class="py-2.5 bg-emerald-600 text-white font-extrabold rounded-xl text-xs shadow-md">Buka Akses</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supabase Cloud SDK & Database Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="db.js"></script>
+  <!-- Script Sinkronisasi Peran & Proteksi PIN Global -->
+  <script src="auth.js"></script>
+  <script src="pwa.js"></script>
+
+  <script>
+    // Format Rupiah
+    function formatRupiah(num) {
+      return 'Rp ' + new Intl.NumberFormat('id-ID').format(num || 0);
+    }
+
+    // Inisialisasi Tampilan Tanggal Hari Ini
+    function initDateDisplay() {
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const todayFormatted = new Date().toLocaleDateString('id-ID', options);
+      const dEl = document.getElementById('desktopDate');
+      const mEl = document.getElementById('mobileDate');
+      if (dEl) dEl.innerText = `${todayFormatted} • Toko Buka Normal`;
+      if (mEl) mEl.innerText = todayFormatted;
+    }
+
+    // Ambil & Tampilkan Metrik Keuangan Terkini
+    async function loadFinancialMetrics() {
+      try {
+        const summary = await DB.getTodayFinancialSummary();
+        const isOwner = (localStorage.getItem('toko_role') || 'pemilik') === 'pemilik';
+
+        // 1. Omzet & Total Transaksi
+        const omzetStr = formatRupiah(summary.omzet);
+        const trxStr = `${summary.trxCount} transaksi lunas`;
+
+        const omzMob = document.getElementById('omzetMobileVal');
+        const trxMob = document.getElementById('trxMobileSub');
+        const omzDesk = document.getElementById('omzetDesktopVal');
+        const trxDesk = document.getElementById('trxDesktopSub');
+
+        if (omzMob) omzMob.innerText = omzetStr;
+        if (trxMob) trxMob.innerText = trxStr;
+        if (omzDesk) omzDesk.innerText = omzetStr;
+        if (trxDesk) trxDesk.innerHTML = `<i class="fa-solid fa-arrow-trend-up"></i> ${trxStr}`;
+
+        // 2. Uang Kas di Laci Kasir
+        const laciStr = formatRupiah(summary.laciKasir);
+        const laciDesk = document.getElementById('laciDesktopVal');
+        const laciSide = document.getElementById('laciSideVal');
+        if (laciDesk) laciDesk.innerText = laciStr;
+        if (laciSide) laciSide.innerText = laciStr;
+
+        // 3. Laba Bersih & Beban Toko (Khusus Pemilik)
+        const untungMob = document.getElementById('untungMobileVal');
+        const untungMobSub = document.getElementById('untungMobileSub');
+        const untungDesk = document.getElementById('untungDesktopVal');
+        const untungDeskSub = document.getElementById('untungDesktopSub');
+        const bebanDesk = document.getElementById('bebanDesktopVal');
+        const bebanDeskSub = document.getElementById('bebanDesktopSub');
+
+        if (isOwner) {
+          const labaStr = formatRupiah(summary.labaBersih);
+          const marginStr = `Margin ~${summary.marginPersen}%`;
+          const bebanStr = formatRupiah(summary.beban);
+
+          if (untungMob) untungMob.innerText = labaStr;
+          if (untungMobSub) untungMobSub.innerText = marginStr;
+          if (untungDesk) untungDesk.innerText = labaStr;
+          if (untungDeskSub) untungDeskSub.innerText = `Margin rata-rata ${summary.marginPersen}%`;
+          if (bebanDesk) bebanDesk.innerText = bebanStr;
+          if (bebanDeskSub) bebanDeskSub.innerText = 'Pengeluaran & operasional';
+        } else {
+          if (untungMob) untungMob.innerHTML = '<span class="text-slate-400 font-bold text-sm">🔒 Terkunci</span>';
+          if (untungMobSub) untungMobSub.innerText = 'Mode Penjaga';
+          if (untungDesk) untungDesk.innerHTML = '<span class="text-slate-400 font-bold text-base">🔒 Rahasia Pemilik</span>';
+          if (untungDeskSub) untungDeskSub.innerText = 'Disembunyikan di mode penjaga';
+          if (bebanDesk) bebanDesk.innerHTML = '<span class="text-slate-400 font-bold text-base">🔒 Rahasia</span>';
+          if (bebanDeskSub) bebanDeskSub.innerText = 'Disembunyikan di mode penjaga';
+        }
+      } catch (err) {
+        console.error("Gagal load financial metrics:", err);
+      }
+    }
+
+    window.refreshFinancialMetrics = loadFinancialMetrics;
+
+    // Ambil & Tampilkan Tabel Inventaris dan Peringatan Stok
+    async function loadInventoryData() {
+      try {
+        const products = await DB.getProducts();
+        const tbody = document.getElementById('inventoryTableBody');
+        const isOwner = (localStorage.getItem('toko_role') || 'pemilik') === 'pemilik';
+
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+        let lowestStockProd = null;
+        let lowStockCount = 0;
+
+        products.forEach(p => {
+          const stock = Number(p.stock_toko || 0);
+          const minStock = Number(p.min_stock_alert || 5);
+
+          let badgeHtml = '';
+          if (stock <= 0) {
+            badgeHtml = '<span class="px-2 py-0.5 bg-rose-100 text-rose-800 font-bold rounded-lg text-[11px]">Habis</span>';
+            lowStockCount++;
+            if (!lowestStockProd) lowestStockProd = p;
+          } else if (stock <= minStock) {
+            badgeHtml = '<span class="px-2 py-0.5 bg-amber-100 text-amber-800 font-bold rounded-lg text-[11px]">Menipis</span>';
+            lowStockCount++;
+            if (!lowestStockProd || stock < lowestStockProd.stock_toko) lowestStockProd = p;
+          } else {
+            badgeHtml = '<span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded-lg text-[11px]">Aman</span>';
+          }
+
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-50/80 transition';
+          tr.innerHTML = `
+            <td class="py-3 font-bold text-slate-900">${p.name}</td>
+            <td class="td-modal py-3 text-slate-600 ${isOwner ? '' : 'hidden'}">${formatRupiah(p.cost_price)}</td>
+            <td class="py-3 font-bold text-emerald-600">${formatRupiah(p.sell_price)}</td>
+            <td class="py-3 text-center font-extrabold ${stock <= minStock ? 'text-amber-700' : 'text-slate-800'}">${stock} ${p.unit || 'Pcs'}</td>
+            <td class="py-3 text-right">${badgeHtml}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        // Update Banner Peringatan Stok
+        const alertBanner = document.getElementById('alertStokBanner');
+        const alertTitle = document.getElementById('alertStokTitle');
+        const alertDesc = document.getElementById('alertStokDesc');
+
+        if (alertBanner && alertTitle && alertDesc) {
+          if (lowestStockProd) {
+            alertBanner.className = 'bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center justify-between text-xs text-amber-900 shadow-sm';
+            alertTitle.innerText = `Peringatan: ${lowestStockProd.name} sisa ${lowestStockProd.stock_toko} ${lowestStockProd.unit || 'Pcs'}`;
+            alertDesc.innerText = lowStockCount > 1 
+              ? `Ada ${lowStockCount} barang stok menipis. Segera lakukan kulakan atau transfer dari gudang.` 
+              : 'Penjualan cepat. Segera kabari supplier atau pindahkan dari gudang.';
+          } else {
+            alertBanner.className = 'bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center justify-between text-xs text-emerald-900 shadow-sm';
+            alertTitle.innerText = 'Stok Seluruh Barang Siap Jual Aman';
+            alertDesc.innerText = 'Semua persediaan toko depan mencukupi di atas batas minimum stok.';
+          }
+        }
+      } catch (err) {
+        console.error("Gagal load inventory data:", err);
+      }
+    }
+
+    // Inisialisasi Keseluruhan Dashboard
+    async function initDashboard() {
+      initDateDisplay();
+      await loadFinancialMetrics();
+      await loadInventoryData();
+    }
+
+    document.addEventListener('DOMContentLoaded', initDashboard);
+    window.addEventListener('toko:data-updated', () => {
+      loadFinancialMetrics();
+      loadInventoryData();
+    });
+  </script>
+</body>
+</html>
