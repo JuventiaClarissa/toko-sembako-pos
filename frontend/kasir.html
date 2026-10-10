@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kasir Penjualan - Toko Berkah Garam</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- HTML5 QR Code & Barcode Scanner Universal (iOS, Android, Windows) -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -323,11 +325,10 @@
         <h3 class="font-extrabold text-sm text-slate-900"><i class="fa-solid fa-barcode text-amber-600 mr-1"></i> Arahkan ke Barcode Barang</h3>
         <button onclick="tutupScannerKamera()" class="w-8 h-8 rounded-full text-slate-400 hover:bg-slate-100"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div class="relative rounded-2xl overflow-hidden bg-black aspect-[4/3]">
-        <video id="scanVideo" class="w-full h-full object-cover" playsinline muted></video>
-        <div class="absolute inset-x-8 top-1/2 h-0.5 bg-rose-500/80 shadow-[0_0_8px_rgba(244,63,94,0.9)]"></div>
+      <div class="relative rounded-2xl overflow-hidden bg-black min-h-[260px] flex items-center justify-center">
+        <div id="scannerReaderBox" class="w-full"></div>
       </div>
-      <p class="text-[11px] text-slate-500 text-center">Tahan HP stabil ±15 cm dari barcode. Otomatis masuk keranjang saat terbaca.</p>
+      <p class="text-[11px] text-slate-500 text-center">Tahan kamera stabil ±15 cm di depan garis barcode atau QR Code.</p>
     </div>
   </div>
 
@@ -1190,44 +1191,67 @@
       else showAppModal(hasil.length ? `Ditemukan ${hasil.length} produk. Ketik nama lebih lengkap, atau klik produknya langsung di katalog.` : 'Produk tidak ditemukan.', { judul: 'Hasil Pencarian', tipe: 'info' });
     }
 
-    let scanStream = null, scanTimer = null, scanBusy = false;
+    let html5QrScanner = null;
+    let scanBusy = false;
+
     async function bukaScannerKamera() {
-      if (!('BarcodeDetector' in window)) {
-        showAppModal('Pemindai kamera belum didukung browser ini. Gunakan Chrome Android terbaru, atau pakai alat scanner barcode USB lalu arahkan kursor ke kolom "Scan / Cari" di atas.', { judul: 'Kamera Belum Didukung', tipe: 'warning' });
+      const modal = document.getElementById('modalScanner');
+      modal.classList.remove('hidden');
+
+      if (typeof Html5Qrcode === 'undefined') {
+        showAppModal('Library pemindai sedang diunduh, pastikan koneksi internet stabil lalu coba lagi.', { judul: 'Memuat Pemindai', tipe: 'warning' });
+        tutupScannerKamera();
         return;
       }
+
       try {
-        scanStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-      } catch (e) {
-        showAppModal('Izin kamera ditolak atau kamera tidak tersedia. Izinkan akses kamera di pengaturan browser.', { judul: 'Kamera Tidak Bisa Dibuka', tipe: 'error' });
-        return;
-      }
-      const video = document.getElementById('scanVideo');
-      video.srcObject = scanStream;
-      await video.play();
-      document.getElementById('modalScanner').classList.remove('hidden');
-      const detector = new BarcodeDetector({ formats: ['ean_13', 'ean_8', 'upc_a', 'upc_e', 'code_128', 'code_39', 'qr_code'] });
-      scanTimer = setInterval(async () => {
-        if (scanBusy) return;
-        scanBusy = true;
-        try {
-          const codes = await detector.detect(video);
-          if (codes.length) {
-            const kode = codes[0].rawValue;
+        if (!html5QrScanner) {
+          html5QrScanner = new Html5Qrcode("scannerReaderBox");
+        }
+
+        const config = {
+          fps: 15,
+          qrbox: { width: 250, height: 180 },
+          aspectRatio: 1.333334
+        };
+
+        await html5QrScanner.start(
+          { facingMode: "environment" },
+          config,
+          (decodedText) => {
+            if (scanBusy) return;
+            scanBusy = true;
             tutupScannerKamera();
             if (navigator.vibrate) navigator.vibrate(80);
-            prosesKodeBarcode(kode);
+            prosesKodeBarcode(decodedText);
+            setTimeout(() => { scanBusy = false; }, 1000);
+          },
+          (errorMessage) => {
+            // Scanning terus berjalan mencari barcode
           }
-        } catch (e) { /* frame belum siap */ }
-        scanBusy = false;
-      }, 300);
+        );
+      } catch (err) {
+        console.error("Gagal memulai scanner:", err);
+        showAppModal('Tidak dapat membuka kamera: ' + (err.message || err) + '\n\nPastikan izin kamera di browser sudah diizinkan.', { judul: 'Kamera Gagal Dibuka', tipe: 'error' });
+        tutupScannerKamera();
+      }
     }
-    function tutupScannerKamera() {
-      clearInterval(scanTimer); scanTimer = null;
-      if (scanStream) { scanStream.getTracks().forEach(t => t.stop()); scanStream = null; }
-      const video = document.getElementById('scanVideo');
-      if (video) video.srcObject = null;
-      document.getElementById('modalScanner').classList.add('hidden');
+
+    async function tutupScannerKamera() {
+      const modal = document.getElementById('modalScanner');
+      if (modal) modal.classList.add('hidden');
+
+      if (html5QrScanner) {
+        try {
+          if (html5QrScanner.isScanning) {
+            await html5QrScanner.stop();
+          }
+          await html5QrScanner.clear();
+        } catch (e) {
+          console.warn("Error saat menutup scanner:", e);
+        }
+        html5QrScanner = null;
+      }
     }
 
     // Inisialisasi awal saat halaman dibuka
