@@ -604,3 +604,57 @@ window.toggleUserRole = toggleUserRole;
 window.mintaPinPemilik = mintaPinPemilik;
 window.tutupModalPin = tutupModalPin;
 window.verifikasiPin = verifikasiPin;
+
+// ===============================================================
+// SINKRONISASI NAMA TOKO DINAMIS KE SELURUH HALAMAN (BERANDA & SIDEBAR)
+// ===============================================================
+function applyStoreProfileUI() {
+  try {
+    let namaToko = 'Toko Berkah Garam';
+    let raw = localStorage.getItem('toko_settings');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && parsed.nama) namaToko = parsed.nama;
+    }
+
+    // 1. Elemen dengan class khusus .nama-toko-label atau id storeName
+    document.querySelectorAll('.nama-toko-label, #storeName, #namaTokoHeader, #namaTokoMobile').forEach(el => {
+      el.innerText = namaToko;
+    });
+
+    // 2. Judul di Header Mobile Beranda: <h1 class="text-2xl font-extrabold tracking-tight mt-1.5">Toko Berkah Garam</h1>
+    const mobileHeaderTitle = document.querySelector('header.md\\:hidden h1.text-2xl');
+    if (mobileHeaderTitle) {
+      mobileHeaderTitle.innerText = namaToko;
+    }
+
+    // 3. Nama Toko di Sidebar Desktop: <h1 class="text-base font-extrabold text-white tracking-tight">Toko Berkah</h1>
+    const sidebarBrand = document.querySelector('aside h1.text-base');
+    if (sidebarBrand) {
+      sidebarBrand.innerText = namaToko;
+    }
+
+    // 4. Update judul dokumen browser jika ada kata "Toko Berkah"
+    if (document.title && (document.title.includes('Toko Berkah') || document.title.includes('Toko'))) {
+      const parts = document.title.split(' - ');
+      if (parts.length > 1) {
+        document.title = `${parts[0]} - ${namaToko}`;
+      } else {
+        document.title = namaToko;
+      }
+    }
+  } catch (e) {
+    console.warn('Gagal sinkronisasi nama toko:', e);
+  }
+}
+
+// Jalankan otomatis saat halaman dimuat & saat event setting berubah
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', applyStoreProfileUI);
+} else {
+  applyStoreProfileUI();
+}
+
+window.addEventListener('toko:settings-updated', applyStoreProfileUI);
+window.addEventListener('storage', applyStoreProfileUI);
+window.applyStoreProfileUI = applyStoreProfileUI;
